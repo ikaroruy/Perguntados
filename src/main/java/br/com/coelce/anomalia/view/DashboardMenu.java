@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package br.com.coelce.anomalia.view;
+
 import br.com.coelce.anomalia.event.NavigationEvent;
 import br.com.coelce.anomalia.model.Usuario;
 import br.com.coelce.anomalia.security.UserInfo;
@@ -24,7 +25,9 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
+import com.vaadin.ui.Tree;
 import com.vaadin.ui.themes.ValoTheme;
+import java.util.Arrays;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
@@ -94,7 +97,7 @@ public class DashboardMenu extends CustomComponent {
         final Usuario user = getCurrentUser();
         settingsItem = settings.addItem("", new ThemeResource(
                 "img/profile-pic-300px.jpg"), null);
-//        updateUserName(null);
+//      updateUserName(null);
         settingsItem.addItem("Editar perfil", new Command() {
             @Override
             public void menuSelected(final MenuItem selectedItem) {
@@ -142,9 +145,9 @@ public class DashboardMenu extends CustomComponent {
 
         for (final DashboardViewType view : DashboardViewType.values()) {
             Component menuItemComponent = new ValoMenuItemButton(view);
-
-            if (view == DashboardViewType.REPORTS) {
-                // Add drop target to reports button
+            
+                if (view == DashboardViewType.REPORTS) {
+                    // Add drop target to reports button
 //                DragAndDropWrapper reports = new DragAndDropWrapper(
 //                        menuItemComponent);
 //                reports.setSizeUndefined();
@@ -170,26 +173,28 @@ public class DashboardMenu extends CustomComponent {
 //
 //                });
 //                menuItemComponent = reports;
-            }
+                }
 
-            if (view == DashboardViewType.DASHBOARD) {
-                notificationsBadge = new Label();
-                notificationsBadge.setId(NOTIFICATIONS_BADGE_ID);
-                menuItemComponent = buildBadgeWrapper(menuItemComponent,
-                        notificationsBadge);
-            }
-            if (view == DashboardViewType.REPORTS) {
-                reportsBadge = new Label();
-                reportsBadge.setId(REPORTS_BADGE_ID);
-                menuItemComponent = buildBadgeWrapper(menuItemComponent,
-                        reportsBadge);
-            }
+                if (view == DashboardViewType.DASHBOARD) {
+                    notificationsBadge = new Label();
+                    notificationsBadge.setId(NOTIFICATIONS_BADGE_ID);
+                    menuItemComponent = buildBadgeWrapper(menuItemComponent,
+                            notificationsBadge);
+                }
+                if (view == DashboardViewType.REPORTS) {
+                    reportsBadge = new Label();
+                    reportsBadge.setId(REPORTS_BADGE_ID);
+                    menuItemComponent = buildBadgeWrapper(menuItemComponent,
+                            reportsBadge);
+                }
 
-            menuItemsLayout.addComponent(menuItemComponent);
+                menuItemsLayout.addComponent(menuItemComponent);
+            }
+            return menuItemsLayout;
+
         }
-        return menuItemsLayout;
 
-    }
+    
 
     private Component buildBadgeWrapper(final Component menuItemButton,
             final Component badgeLabel) {

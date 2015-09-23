@@ -33,9 +33,3 @@ public class MyUI extends UI {
         navigationEvent.fire(new NavigationEvent("login"));
     }
 }
-
-//    @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
-//    @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
-//    public static class MyUIServlet extends VaadinServlet {
-//    }
-//}

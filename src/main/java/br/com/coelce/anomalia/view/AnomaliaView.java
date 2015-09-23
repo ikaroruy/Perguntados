@@ -41,12 +41,12 @@ import javax.inject.Inject;
 public class AnomaliaView extends VerticalLayout implements View {
 
     private static final Logger LOGGER = Logger.getLogger(AnomaliaView.class.getSimpleName());
-    public static final String VIEW_NAME = "anomalia";
+    public static final String VIEW_NAME = "anomalias";
     private Table table;
     @Inject
     private AnomaliaContainer container;
     @Inject
-    private AnomaliaWindow parlamentarWindow;
+    private AnomaliaWindow anomaliaWindow;
     private Button editButton;
 
     @Override
@@ -64,8 +64,8 @@ public class AnomaliaView extends VerticalLayout implements View {
         header.addStyleName("viewheader");
         header.setSpacing(true);
         Responsive.makeResponsive(header);
-
-        Label title = new Label("Anomalias");
+                
+        Label title = new Label("Cadastro de Anomalias");
         title.setSizeUndefined();
         title.addStyleName(ValoTheme.LABEL_H1);
         title.addStyleName(ValoTheme.LABEL_NO_MARGIN);
@@ -95,10 +95,14 @@ public class AnomaliaView extends VerticalLayout implements View {
         tableReturn.setColumnReorderingAllowed(true);
 
         tableReturn.setContainerDataSource(container);
-        container.addNestedContainerProperty("partido.nome");
-        container.addNestedContainerProperty("partido.sigla");
-        tableReturn.setVisibleColumns(new Object[]{"id", "nome", "partido.sigla", "partido.nome"});
-        tableReturn.setColumnHeaders(new String[]{"ID", "Nome", "Partido", "Nome do Partido"});
+        container.addNestedContainerProperty("acao.nome");
+        container.addNestedContainerProperty("tipoAnomalia.tipo");
+        container.addNestedContainerProperty("tipoAnomalia.descricao");
+        container.addNestedContainerProperty("rotina.nome");
+        container.addNestedContainerProperty("rotina.operador.nome");
+//        container.addNestedContainerProperty("acao.sigla");
+        tableReturn.setVisibleColumns(new Object[]{"id", "tipoAnomalia.tipo", "tipoAnomalia.descricao", "rotina.nome" ,"rotina.operador.nome", "dataOcorrencia", "horaOcorrencia","dataCorrecao"});
+        tableReturn.setColumnHeaders(new String[]{"Código", "Classificação da Anomalia","Descrição", "Rotina" ,"Operador" , "Data da ocorrência", "Hora da ocorrência", "Data da correção"});
         tableReturn.addValueChangeListener(new Property.ValueChangeListener() {
 
             @Override
@@ -116,7 +120,7 @@ public class AnomaliaView extends VerticalLayout implements View {
             public void textChange(final FieldEvents.TextChangeEvent event) {
                 Container.Filterable data = (Container.Filterable) table.getContainerDataSource();
                 data.removeAllContainerFilters();
-                Or or = new Or(new Like("partido.nome", event.getText() + "%", false),
+                Or or = new Or(new Like("acao.nome", event.getText() + "%", false),
                         new Like("nome", event.getText() + "%", false));
                 data.addContainerFilter(or);
             }
@@ -142,7 +146,7 @@ public class AnomaliaView extends VerticalLayout implements View {
         bIncluir.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                parlamentarWindow.create();
+                anomaliaWindow.create();
             }
         });
 
@@ -160,7 +164,7 @@ public class AnomaliaView extends VerticalLayout implements View {
 
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                parlamentarWindow.edit(table.getValue().toString());
+                anomaliaWindow.edit(table.getValue().toString());
             }
         });
         Button[] buttons = {bIncluir, editButton, bAtualizar};

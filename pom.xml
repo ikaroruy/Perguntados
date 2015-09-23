@@ -111,6 +111,18 @@
             <artifactId>cdi-api</artifactId>
             <version>1.2</version>
         </dependency>
+	 <dependency>
+	  <groupId>com.google.guava</groupId>
+	  <artifactId>guava</artifactId>
+	  <version>18.0</version>
+	  <type>jar</type>
+	 </dependency>
+	 <dependency>
+	  <groupId>org.vaadin.addons</groupId>
+	  <artifactId>timefield</artifactId>
+	  <version>0.9</version>
+	  <scope>compile</scope>
+	 </dependency>
 	</dependencies>
 
 	<build>

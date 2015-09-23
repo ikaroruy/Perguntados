@@ -44,7 +44,7 @@ import javax.inject.Inject;
 public class AcaoView extends VerticalLayout implements View {
 
     private static final Logger LOGGER = Logger.getLogger(AcaoView.class.getSimpleName());
-    public static final String VIEW_NAME = "ações";
+    public static final String VIEW_NAME = "ação";
     private Table table;
     @Inject
     private AcaoContainer container;
@@ -68,7 +68,7 @@ public class AcaoView extends VerticalLayout implements View {
         header.setSpacing(true);
         Responsive.makeResponsive(header);
 
-        Label title = new Label("Ações");
+        Label title = new Label("Cadastro de ações");
         title.setSizeUndefined();
         title.addStyleName(ValoTheme.LABEL_H1);
         title.addStyleName(ValoTheme.LABEL_NO_MARGIN);
@@ -98,22 +98,22 @@ public class AcaoView extends VerticalLayout implements View {
         tableReturn.setColumnReorderingAllowed(true);
 
         tableReturn.setContainerDataSource(container);
-//        container.addNestedContainerProperty("partido.nome");
-        tableReturn.setVisibleColumns(new Object[]{"sigla", "nome", "logotipo"});
-        tableReturn.setColumnHeaders(new String[]{"Sigla", "Nome", "Logotipo"});
-        tableReturn.addGeneratedColumn("logotipo", new Table.ColumnGenerator() {
-
-            @Override
-            public Object generateCell(Table source, Object itemId, Object columnId) {
-                Property itemProperty = source.getItem(itemId).getItemProperty(columnId);
-                if (itemProperty.getValue()==null){
-                    return new Label("Sem imagem");
-                }
-                return new Embedded("", new FileResource(new File(itemProperty.getValue().toString())));
-//                return new Image("", new FileResource(new File(itemProperty.getValue().toString())));
-            }
-        });
-        tableReturn.setItemIcon(this, null);
+//        container.addNestedContainerProperty("anomalia.id");
+        tableReturn.setVisibleColumns(new Object[]{"id", "nome", "descricao", "dataInicio", "dataTermino"});
+        tableReturn.setColumnHeaders(new String[]{"Código", "Nome", "Descrição", "Data de Início", "Data de Término"});
+//        tableReturn.addGeneratedColumn("logotipo", new Table.ColumnGenerator() {
+//
+//            @Override
+//            public Object generateCell(Table source, Object itemId, Object columnId) {
+//                Property itemProperty = source.getItem(itemId).getItemProperty(columnId);
+//                if (itemProperty.getValue()==null){
+//                    return new Label("Sem imagem");
+//                }
+//                return new Embedded("", new FileResource(new File(itemProperty.getValue().toString())));
+////                return new Image("", new FileResource(new File(itemProperty.getValue().toString())));
+//            }
+//        });
+//        tableReturn.setItemIcon(this, null);
         tableReturn.addValueChangeListener(new Property.ValueChangeListener() {
 
             @Override

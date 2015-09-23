@@ -20,6 +20,7 @@ import com.vaadin.shared.Position;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
@@ -148,7 +149,7 @@ public class LoginView extends VerticalLayout implements View, ClickListener {
             return;
         }
         user.setUsuario(findByLogin);
-        navigationEvent.fire(new NavigationEvent("parlamentar"));
+        navigationEvent.fire(new NavigationEvent("anomalias"));
     }
 
     private void teste() {

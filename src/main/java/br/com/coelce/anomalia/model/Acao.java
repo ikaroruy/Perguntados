@@ -5,18 +5,42 @@
  */
 package br.com.coelce.anomalia.model;
 
+import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
 
 /**
  *
  * @author dunkelheit
  */
 @Entity
-public class Acao extends Identified {
+public class Acao implements Serializable {
 
-    private String sigla;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
     private String nome;
-    private String logotipo;
+
+    private String descricao;
+
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dataInicio;
+
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dataTermino;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -26,20 +50,28 @@ public class Acao extends Identified {
         this.nome = nome;
     }
 
-    public String getLogotipo() {
-        return logotipo;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setLogotipo(String logotipo) {
-        this.logotipo = logotipo;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public String getSigla() {
-        return sigla;
+    public Date getDataInicio() {
+        return dataInicio;
     }
 
-    public void setSigla(String sigla) {
-        this.sigla = sigla;
+    public void setDataInicio(Date dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public Date getDataTermino() {
+        return dataTermino;
+    }
+
+    public void setDataTermino(Date dataTermino) {
+        this.dataTermino = dataTermino;
     }
 
 }

@@ -65,7 +65,7 @@ public class AcaoWindow extends Window implements Button.ClickListener {
         addStyleName("profile-window");
         setModal(true);
         layout = new FormLayout();
-        layout.setSizeFull();
+        layout.setSizeUndefined();
         layout.setSpacing(true);
 
         bSalvar = new Button("Salvar");
@@ -90,13 +90,13 @@ public class AcaoWindow extends Window implements Button.ClickListener {
         layout.addComponent(siglaField);
         nomeField = new TextField("Nome");
         layout.addComponent(nomeField);
-        image = new Embedded("Logotipo", new ThemeResource("img/profile-pic-300px.jpg"));
+        image = new Embedded("Anexo", new ThemeResource("img/pdf-icon.png"));
         layout.addComponent(image);
         progressBar = new ProgressBar();
         progressBar.setVisible(false);
         layout.addComponent(progressBar);
         imageUploader = new ImageUploader(image, progressBar);
-        upload = new Upload("Envie o logotipo", imageUploader);
+        upload = new Upload("Envie o arquivo", imageUploader);
         upload.setButtonCaption("Enviar");
         upload.addStartedListener(imageUploader);
         upload.addProgressListener(imageUploader);
@@ -108,33 +108,31 @@ public class AcaoWindow extends Window implements Button.ClickListener {
         layout.addComponent(buttons);
         binder = new BeanFieldGroup<>(Acao.class);
         binder.bindMemberFields(this);
-        setHeight("400px");
-        setWidth("300px");
     }
 
     public void create() {
-        setCaption("Novo Partido");
+        setCaption("Nova Acao");
         bindingFields(new Acao());
         UI.getCurrent().addWindow(this);
     }
 
     public void edit(String id) {
         try {
-            setCaption("Editar Partido");
+            setCaption("Editar Ação");
             Acao m = container.getItem(id).getEntity();
             bindingFields(m);
             bExcluir.setVisible(true);
             UI.getCurrent().addWindow(this);
         } catch (IllegalArgumentException | NullPointerException ex) {
-            Notification.show("Não consegui abrir o equipamento para edição!\n" + ex.getMessage(), Notification.Type.ERROR_MESSAGE);
+            Notification.show("Não consegui abrir a ação para edição!\n" + ex.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
     }
 
     private void bindingFields(Acao m) {
-        binder.setItemDataSource(m);
-        if (!StringUtils.INSTANCE.isNullOrBlank(m.getLogotipo())) {
-            image.setSource(new FileResource(new File(m.getLogotipo())));
-        }
+//        binder.setItemDataSource(m);
+//        if (!StringUtils.INSTANCE.isNullOrBlank(m.getLogotipo())) {
+//            image.setSource(new FileResource(new File(m.getLogotipo())));
+//        }
 //        Field<?> field = null;
 //        field = binder.buildAndBind("Nome", "nome");
 //        field.setWidth("100%");
@@ -147,7 +145,7 @@ public class AcaoWindow extends Window implements Button.ClickListener {
             try {
                 if (image.getSource() instanceof FileResource) {
                     FileResource fr = (FileResource) image.getSource();
-                    binder.getItemDataSource().getBean().setLogotipo(fr.getFilename());
+//                    binder.getItemDataSource().getBean().setLogotipo(fr.getFilename());
                 }
                 binder.commit();
             } catch (FieldGroup.CommitException e) {
@@ -157,7 +155,7 @@ public class AcaoWindow extends Window implements Button.ClickListener {
             try {
                 container.addEntity(binder.getItemDataSource().getBean());
                 //log.debug("Mercadoria persistida!");
-                Notification.show("Partido cadastrado!", Notification.Type.HUMANIZED_MESSAGE);
+                Notification.show("Ação cadastrada!", Notification.Type.HUMANIZED_MESSAGE);
             } catch (UnsupportedOperationException | IllegalStateException e) {
                 Logger.getLogger(AcaoWindow.class.getSimpleName()).log(Level.SEVERE, "", e);
                 Notification.show("Houve um problema durante o salvamento!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
