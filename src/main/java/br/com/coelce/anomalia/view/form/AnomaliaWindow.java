@@ -9,11 +9,13 @@ import br.com.coelce.anomalia.model.Anomalia;
 import br.com.coelce.anomalia.model.TipoAnomalia;
 import br.com.coelce.anomalia.persistence.AcaoContainer;
 import br.com.coelce.anomalia.persistence.AnomaliaContainer;
+import br.com.coelce.anomalia.persistence.AreaContainer;
 import br.com.coelce.anomalia.persistence.DiretoriaContainer;
+import br.com.coelce.anomalia.persistence.OperadorContainer;
+import br.com.coelce.anomalia.persistence.RotinaContainer;
 import br.com.coelce.anomalia.persistence.TipoAnomaliaContainer;
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup;
-import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.data.util.filter.Compare;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.shared.ui.window.WindowMode;
@@ -26,7 +28,6 @@ import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 import java.util.List;
@@ -43,17 +44,16 @@ import org.vaadin.thomas.timefield.TimeField;
 public class AnomaliaWindow extends Window implements Button.ClickListener {
 
     private ComboBox acaoField;
-    private ComboBox clasAnomalia;
-    private ComboBox rotina;
-    private ComboBox operador;
-    private TimeField hora;
-    private ComboBox diretoria;
-    private ComboBox area;
-    private DateField data;
+    private ComboBox clasAnomaliaCombo;
+    private ComboBox rotinaCombo;
+    private ComboBox operadorCombo;
+    private TimeField horaField;
+    private ComboBox diretoriaCombo;
+    private ComboBox areaCombo;
+    private DateField dataField;
     private FormLayout layout;
     private GridLayout gridLayout;
     private BeanFieldGroup<Anomalia> binder;
-    private BeanFieldGroup<TipoAnomalia> bindTipoAnomalia;
     private HorizontalLayout buttons;
     private Button bSalvar;
     private Button bCancelar;
@@ -62,16 +62,17 @@ public class AnomaliaWindow extends Window implements Button.ClickListener {
     private AnomaliaContainer container;
     @Inject
     private AcaoContainer acaoContainer;
-    @Inject 
+    @Inject
     private TipoAnomaliaContainer tipoAnomaliaContainer;
     @Inject
     private DiretoriaContainer diretoriaContainer;
+    @Inject
+    private AreaContainer areaContainer;
+    @Inject
+    private OperadorContainer operadorContainer;
+    @Inject
+    private RotinaContainer rotinaContainer;
 
-//    public ParlamentarWindow(ParlamentarContainer container) {
-//        this.container = container;
-////        init();
-//        setModal(true);
-//    }
     @PostConstruct
     public void init() {
         addStyleName("profile-window");
@@ -86,7 +87,7 @@ public class AnomaliaWindow extends Window implements Button.ClickListener {
         layout.setSpacing(true);
         layout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
         layout.addComponent(gridLayout);
-       
+
         bSalvar = new Button("Salvar");
         bSalvar.addClickListener(this);
         bSalvar.setClickShortcut(ShortcutAction.KeyCode.ENTER);
@@ -104,70 +105,56 @@ public class AnomaliaWindow extends Window implements Button.ClickListener {
         buttons.addComponent(bSalvar);
         buttons.addComponent(bCancelar);
         buttons.addComponent(bExcluir);
-        
-        
 
         setContent(layout);
-        clasAnomalia = new ComboBox("Classificação da Anomalia", tipoAnomaliaContainer);
+        clasAnomaliaCombo = new ComboBox("Classificação da Anomalia", tipoAnomaliaContainer);
 //        clasAnomalia.setImmediate(true);
 //        clasAnomalia.setItemCaptionMode(AbstractSelect.ItemCaptionMode.PROPERTY);
-        clasAnomalia.setItemCaptionPropertyId("tipo");
+        clasAnomaliaCombo.setItemCaptionPropertyId("tipo");
 //        clasAnomalia.setRequired(true);
 //        clasAnomalia.setRequiredError("campo obrigatório");
-        gridLayout.addComponent(clasAnomalia);
-        
-        
-        diretoria = new ComboBox("Diretoria", diretoriaContainer);
+        gridLayout.addComponent(clasAnomaliaCombo);
+
+        diretoriaCombo = new ComboBox("Diretoria", diretoriaContainer);
 //        diretoria.setRequired(true);
 //        diretoria.setRequiredError("campo obrigatório");
-        diretoria.setItemCaptionPropertyId("nome");
-        gridLayout.addComponent(diretoria);
-        
-        area = new ComboBox("Area");
+        diretoriaCombo.setItemCaptionPropertyId("nome");
+        gridLayout.addComponent(diretoriaCombo);
+
+        areaCombo = new ComboBox("Area", areaContainer);
 //        area.setRequired(true);
 //        area.setRequiredError("campo obrigatório");
-        area.setItemCaptionPropertyId("nome");
-        gridLayout.addComponent(area);
-        
-        rotina = new ComboBox("Rotina");
+        areaCombo.setItemCaptionPropertyId("nome");
+        gridLayout.addComponent(areaCombo);
+
+        rotinaCombo = new ComboBox("Rotina", rotinaContainer);
 //        rotina.setRequired(true);
 //        rotina.setRequiredError("campo obrigatório");
-        gridLayout.addComponent(rotina);
-        
-        operador = new ComboBox("Operador");
+        rotinaCombo.setItemCaptionPropertyId("nome");
+        gridLayout.addComponent(rotinaCombo);
+
+        operadorCombo = new ComboBox("Operador", operadorContainer);
 //        operador.setRequired(true);
 //        operador.setRequiredError("campo obrigatório");
-        gridLayout.addComponent(operador);
-        
-        data = new DateField("Data da Ocorrência");
+        operadorCombo.setItemCaptionPropertyId("nome");
+        gridLayout.addComponent(operadorCombo);
+
+        dataField = new DateField("Data da Ocorrência");
 //        data.setRequired(true);
 //        data.setRequiredError("campo obrigatório");
-        data.setValue(new java.util.Date());
-        gridLayout.addComponent(data);
-        
-        hora = new TimeField("Hora da Ocorrência");
-        hora.set24HourClock(true);
+        dataField.setValue(new java.util.Date());
+        gridLayout.addComponent(dataField);
+
+        horaField = new TimeField("Hora da Ocorrência");
+        horaField.set24HourClock(true);
 //        hora.setRequired(true);
 //        hora.setRequiredError("campo obrigatório");
-        gridLayout.addComponent(hora);
-//    
-//        acaoField = new ComboBox("Acao", acaoContainer);
-//        acaoField.setInputPrompt("Escolha uma Acao");
-//        acaoField.setItemCaptionPropertyId("sigla");
-//        acaoField.setConverter(new SingleSelectConverter<Acao>(acaoField));
-////        partidoField.setItemCaptionMode(ItemCaptionMode.PROPERTY);
-//        acaoField.setNewItemsAllowed(true);
-//        acaoField.setNewItemHandler(new MyNewItemHandler());
-////        gridLayout.addComponent(acaoField);
-        
-        
-//        gridLayout.addComponent(acaoField);
+        gridLayout.addComponent(horaField);
 
         layout.addComponent(buttons);
         binder = new BeanFieldGroup<>(Anomalia.class);
         binder.bindMemberFields(this);
-        
-        
+
     }
 
     public void create() {
@@ -207,7 +194,6 @@ public class AnomaliaWindow extends Window implements Button.ClickListener {
             }
             try {
                 container.addEntity(binder.getItemDataSource().getBean());
-                //log.debug("Mercadoria persistida!");
                 Notification.show("Anomalia cadastrada!", Notification.Type.HUMANIZED_MESSAGE);
             } catch (UnsupportedOperationException | IllegalStateException e) {
                 Logger.getLogger(AnomaliaWindow.class.getSimpleName()).log(Level.SEVERE, "", e);
@@ -215,7 +201,7 @@ public class AnomaliaWindow extends Window implements Button.ClickListener {
                 return;
             }
         } else if (event.getButton() == bExcluir) {
-            container.removeItem(binder.getItemDataSource().getBean().getId());            
+            container.removeItem(binder.getItemDataSource().getBean().getId());
         } else if (event.getButton() == bCancelar) {
             binder.discard();
         }
@@ -227,13 +213,13 @@ public class AnomaliaWindow extends Window implements Button.ClickListener {
         @Override
         public void addNewItem(String newItemCaption) {
             List<Object> allEntityIdentifiers = tipoAnomaliaContainer.getEntityProvider().getAllEntityIdentifiers(tipoAnomaliaContainer, new Compare.Equal("id", newItemCaption), null);
-            
+
             if (allEntityIdentifiers.isEmpty()) {
                 TipoAnomalia p = new TipoAnomalia();
                 p.setTipo(newItemCaption.toUpperCase());
                 Object addEntity = tipoAnomaliaContainer.addEntity(p);
-                clasAnomalia.addItem(addEntity);
-                clasAnomalia.setValue(addEntity);
+                clasAnomaliaCombo.addItem(addEntity);
+                clasAnomaliaCombo.setValue(addEntity);
             }
         }
 

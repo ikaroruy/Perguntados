@@ -5,10 +5,10 @@
  */
 package br.com.coelce.anomalia.view;
 
+import com.vaadin.client.ui.Icon;
 import com.vaadin.navigator.View;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Resource;
-import com.vaadin.ui.Tree;
 
 /**
  *
@@ -21,8 +21,10 @@ public enum DashboardViewType {
     CLASANOMALIAS(TipoAnomaliaView.VIEW_NAME, TipoAnomaliaView.class, FontAwesome.ALIGN_CENTER, false),
     ACOES(AcaoView.VIEW_NAME, AcaoView.class, FontAwesome.CHECK, false),
     PROCESSOS(ProcessoView.VIEW_NAME, ProcessoView.class, FontAwesome.SITEMAP, false),
+    ROTINAS(RotinaView.VIEW_NAME, RotinaView.class, FontAwesome.CLIPBOARD, false),
     DIRETORIA(DiretoriaView.VIEW_NAME, DiretoriaView.class, FontAwesome.GROUP, false),
     AREAS(AreaView.VIEW_NAME, AreaView.class, FontAwesome.BUILDING, false),
+    OPERADORES(OperadorView.VIEW_NAME, AreaView.class, FontAwesome.MALE, false),
     REPORTS("relatorios", AreaView.class, FontAwesome.FILE_TEXT_O, true),
     SCHEDULE("agenda", AreaView.class, FontAwesome.CALENDAR_O, false);
     

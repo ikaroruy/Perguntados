@@ -5,48 +5,43 @@
  */
 package br.com.coelce.anomalia.view.form;
 
-import br.com.coelce.anomalia.business.ImageUploader;
-import br.com.coelce.anomalia.model.Area;
 import br.com.coelce.anomalia.model.Processo;
-import br.com.coelce.anomalia.persistence.AreaContainer;
+import br.com.coelce.anomalia.model.Rotina;
+import br.com.coelce.anomalia.persistence.OperadorContainer;
 import br.com.coelce.anomalia.persistence.ProcessoContainer;
+import br.com.coelce.anomalia.persistence.RotinaContainer;
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.event.ShortcutAction;
-import com.vaadin.server.FileResource;
-import com.vaadin.server.ThemeResource;
+import com.vaadin.shared.ui.window.WindowMode;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Embedded;
+import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.ProgressBar;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.Upload;
 import com.vaadin.ui.Window;
-import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import org.vaadin.thomas.timefield.TimeField;
 
 /**
  *
  * @author dunkelheit
  */
-public class ProcessoWindow extends Window implements Button.ClickListener{
-    
-    @PropertyId("sigla")
-    private TextField siglaField;
+public class ProcessoWindow extends Window implements Button.ClickListener {
+
     @PropertyId("nome")
     private TextField nomeField;
-    private Upload upload;
-    private ProgressBar progressBar;
-    private Embedded image;
-    private ImageUploader imageUploader;
-
+    @PropertyId("descricao")
+    private TextField descricaoField;
+    
+    private TimeField tempoField;
+            
     private FormLayout layout;
     private BeanFieldGroup<Processo> binder;
     private HorizontalLayout buttons;
@@ -56,15 +51,11 @@ public class ProcessoWindow extends Window implements Button.ClickListener{
     @Inject
     private ProcessoContainer container;
 
-//    public ParlamentarWindow(ParlamentarContainer container) {
-//        this.container = container;
-////        init();
-//        setModal(true);
-//    }
     @PostConstruct
     public void init() {
         addStyleName("profile-window");
         setModal(true);
+        setWindowMode(WindowMode.MAXIMIZED);
         layout = new FormLayout();
         layout.setSizeUndefined();
         layout.setSpacing(true);
@@ -87,28 +78,20 @@ public class ProcessoWindow extends Window implements Button.ClickListener{
         buttons.addComponent(bExcluir);
 
         setContent(layout);
-        siglaField = new TextField("Sigla");
-        layout.addComponent(siglaField);
         nomeField = new TextField("Nome");
+        nomeField.setNullRepresentation("");
         layout.addComponent(nomeField);
-        image = new Embedded("Anexo", new ThemeResource("img/pdf-icon.png"));
-        layout.addComponent(image);
-        progressBar = new ProgressBar();
-        progressBar.setVisible(false);
-        layout.addComponent(progressBar);
-        imageUploader = new ImageUploader(image, progressBar);
-        upload = new Upload("Envie o arquivo", imageUploader);
-        upload.setButtonCaption("Enviar");
-        upload.addStartedListener(imageUploader);
-        upload.addProgressListener(imageUploader);
-        upload.addFailedListener(imageUploader);
-        upload.addSucceededListener(imageUploader);
-        upload.addFinishedListener(imageUploader);
-        layout.addComponent(upload);
+        descricaoField = new TextField("Descrição");
+        descricaoField.setNullRepresentation("");
+        layout.addComponent(descricaoField);
+        tempoField = new TimeField("Tempo estimado");
+        layout.addComponent(tempoField);
+    
         
         layout.addComponent(buttons);
         binder = new BeanFieldGroup<>(Processo.class);
         binder.bindMemberFields(this);
+
     }
 
     public void create() {
@@ -130,46 +113,36 @@ public class ProcessoWindow extends Window implements Button.ClickListener{
     }
 
     private void bindingFields(Processo m) {
-//        binder.setItemDataSource(m);
-//        if (!StringUtils.INSTANCE.isNullOrBlank(m.getLogotipo())) {
-//            image.setSource(new FileResource(new File(m.getLogotipo())));
+        binder.setItemDataSource(m);
+//        if (!StringUtils.INSTANCE.isNullOrBlank(m.getDescricao())) {
+//            image.setSource(new FileResource(new File(m.getDescricao())));
 //        }
 //        Field<?> field = null;
-//        field = binder.buildAndBind("Nome", "nome");
+//        field = binder.buildAndBind("Nome", "tipo");
 //        field.setWidth("100%");
 //        layout.addComponent(field);
+//      
     }
 
     @Override
     public void buttonClick(Button.ClickEvent event) {
         if (event.getButton() == bSalvar) {
             try {
-                if (image.getSource() instanceof FileResource) {
-                    FileResource fr = (FileResource) image.getSource();
-//                    binder.getItemDataSource().getBean().setLogotipo(fr.getFilename());
-                }
                 binder.commit();
-            } catch (FieldGroup.CommitException e) {
-                Notification.show("Preencha o formulário corretamente");
-                return;
+            } catch (FieldGroup.CommitException ex) {
+                Logger.getLogger(ProcessoWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 container.addEntity(binder.getItemDataSource().getBean());
-                //log.debug("Mercadoria persistida!");
-                Notification.show("Processo cadastrado!", Notification.Type.HUMANIZED_MESSAGE);
+                Notification.show("Novo processo cadastrado!", Notification.Type.HUMANIZED_MESSAGE);
             } catch (UnsupportedOperationException | IllegalStateException e) {
-                Logger.getLogger(AcaoWindow.class.getSimpleName()).log(Level.SEVERE, "", e);
+                Logger.getLogger(ProcessoWindow.class.getSimpleName()).log(Level.SEVERE, "", e);
                 Notification.show("Houve um problema durante o salvamento!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
                 return;
             }
         } else if (event.getButton() == bExcluir) {
             container.removeItem(binder.getItemDataSource().getBean().getId());
         } else if (event.getButton() == bCancelar) {
-            if (image.getSource() instanceof FileResource) {
-                FileResource fr = (FileResource) image.getSource();
-                File sourceFile = fr.getSourceFile();
-                sourceFile.delete();
-            }
             binder.discard();
         }
         close();

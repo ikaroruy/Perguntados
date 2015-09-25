@@ -98,8 +98,9 @@ public class ProcessoView extends VerticalLayout implements View{
 
         tableReturn.setContainerDataSource(container);
 //        container.addNestedContainerProperty("diretoria.id");
-        tableReturn.setVisibleColumns(new Object[]{"id", "nome", "descricao"});
-        tableReturn.setColumnHeaders(new String[]{"Código", "Nome", "Descrição"});
+        container.addNestedContainerProperty("rotina.nome");
+        tableReturn.setVisibleColumns(new Object[]{"id", "nome", "descricao", "tempoEstimado","rotina.nome"});
+        tableReturn.setColumnHeaders(new String[]{"Código", "Nome", "Descrição","Tempo estimado","Rotinas"});
 //        tableReturn.addGeneratedColumn("logotipo", new Table.ColumnGenerator() {
 //
 //            @Override

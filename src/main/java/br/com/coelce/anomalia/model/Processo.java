@@ -6,14 +6,11 @@
 package br.com.coelce.anomalia.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
 
 /**
  *
@@ -31,13 +28,6 @@ public class Processo implements Serializable {
     private String descricao;
     
     private Integer tempoEstimado;
-    
-
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dataInicio;
-    
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dataTermino;
     
     @ManyToOne
     private Rotina rotina;
@@ -74,22 +64,6 @@ public class Processo implements Serializable {
         this.tempoEstimado = tempoEstimado;
     }
 
-    public Date getDataInicio() {
-        return dataInicio;
-    }
-
-    public void setDataInicio(Date dataInicio) {
-        this.dataInicio = dataInicio;
-    }
-
-    public Date getDataTermino() {
-        return dataTermino;
-    }
-
-    public void setDataTermino(Date dataTermino) {
-        this.dataTermino = dataTermino;
-    }
-    
     public Rotina getRotina() {
         return rotina;
     }

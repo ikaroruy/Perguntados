@@ -100,9 +100,10 @@ public class AnomaliaView extends VerticalLayout implements View {
         container.addNestedContainerProperty("tipoAnomalia.descricao");
         container.addNestedContainerProperty("rotina.nome");
         container.addNestedContainerProperty("rotina.operador.nome");
+        container.addNestedContainerProperty("area.nome");
 //        container.addNestedContainerProperty("acao.sigla");
-        tableReturn.setVisibleColumns(new Object[]{"id", "tipoAnomalia.tipo", "tipoAnomalia.descricao", "rotina.nome" ,"rotina.operador.nome", "dataOcorrencia", "horaOcorrencia","dataCorrecao"});
-        tableReturn.setColumnHeaders(new String[]{"Código", "Classificação da Anomalia","Descrição", "Rotina" ,"Operador" , "Data da ocorrência", "Hora da ocorrência", "Data da correção"});
+        tableReturn.setVisibleColumns(new Object[]{"id", "tipoAnomalia.tipo", "tipoAnomalia.descricao", "rotina.nome" ,"rotina.operador.nome", "dataOcorrencia", "horaOcorrencia","dataCorrecao", "area.nome"});
+        tableReturn.setColumnHeaders(new String[]{"Código", "Classificação da Anomalia","Descrição", "Rotina" ,"Operador" , "Data da ocorrência", "Hora da ocorrência", "Data da correção", "Área"});
         tableReturn.addValueChangeListener(new Property.ValueChangeListener() {
 
             @Override

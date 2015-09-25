@@ -31,16 +31,16 @@ import javax.inject.Inject;
  *
  * @author dunkelheit
  */
-public class AreaWindow extends Window implements Button.ClickListener{
+public class AreaWindow extends Window implements Button.ClickListener {
 
     @PropertyId("nome")
-    private TextField nome;
+    private TextField nomeField;
     @PropertyId("descricao")
-    private TextField descricao;
-    
-    private ComboBox diretoria;
+    private TextField descricaoField;
+
+    private ComboBox diretoriaCombo;
     private Embedded image;
-    
+
     private FormLayout layout;
     private BeanFieldGroup<Area> binder;
     private HorizontalLayout buttons;
@@ -84,19 +84,20 @@ public class AreaWindow extends Window implements Button.ClickListener{
         buttons.addComponent(bExcluir);
 
         setContent(layout);
-        nome = new TextField("Nome");
-        nome.setNullRepresentation("");
-        layout.addComponent(nome);
-        descricao = new TextField("Descrição");
-        descricao.setNullRepresentation("");
-        layout.addComponent(descricao);
-        diretoria = new ComboBox("Diretoria", diretoriaContainer);
-        layout.addComponent(diretoria);
-        
-        
+        nomeField = new TextField("Nome");
+        nomeField.setNullRepresentation("");
+        layout.addComponent(nomeField);
+        descricaoField = new TextField("Descrição");
+        descricaoField.setNullRepresentation("");
+        layout.addComponent(descricaoField);
+        diretoriaCombo = new ComboBox("Diretoria", diretoriaContainer);
+        diretoriaCombo.setItemCaptionPropertyId("nome");
+        layout.addComponent(diretoriaCombo);
+
         layout.addComponent(buttons);
         binder = new BeanFieldGroup<>(Area.class);
         binder.bindMemberFields(this);
+
     }
 
     public void create() {
@@ -126,11 +127,13 @@ public class AreaWindow extends Window implements Button.ClickListener{
 //        field = binder.buildAndBind("Nome", "tipo");
 //        field.setWidth("100%");
 //        layout.addComponent(field);
+//      
     }
 
     @Override
     public void buttonClick(Button.ClickEvent event) {
         if (event.getButton() == bSalvar) {
+            System.out.println(diretoriaCombo.getValue());
             try {
                 binder.commit();
             } catch (FieldGroup.CommitException ex) {
@@ -141,7 +144,7 @@ public class AreaWindow extends Window implements Button.ClickListener{
                 //log.debug("Mercadoria persistida!");
                 Notification.show("Nova área cadastrada!", Notification.Type.HUMANIZED_MESSAGE);
             } catch (UnsupportedOperationException | IllegalStateException e) {
-                Logger.getLogger(DiretoriaWindow.class.getSimpleName()).log(Level.SEVERE, "", e);
+                Logger.getLogger(AreaWindow.class.getSimpleName()).log(Level.SEVERE, "", e);
                 Notification.show("Houve um problema durante o salvamento!\n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
                 return;
             }

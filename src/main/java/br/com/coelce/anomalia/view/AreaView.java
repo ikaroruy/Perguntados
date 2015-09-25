@@ -95,7 +95,6 @@ public class AreaView extends VerticalLayout implements View {
         tableReturn.setSelectable(true);
         tableReturn.setColumnCollapsingAllowed(true);
         tableReturn.setColumnReorderingAllowed(true);
-
         tableReturn.setContainerDataSource(container);
         container.addNestedContainerProperty("diretoria.nome");
         tableReturn.setVisibleColumns(new Object[]{"id", "nome", "descricao", "diretoria.nome"});

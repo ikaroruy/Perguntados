@@ -5,31 +5,21 @@
  */
 package br.com.coelce.anomalia.view.form;
 
-import br.com.coelce.anomalia.business.ImageUploader;
-import br.com.coelce.anomalia.model.Acao;
 import br.com.coelce.anomalia.model.TipoAnomalia;
-import br.com.coelce.anomalia.persistence.AcaoContainer;
 import br.com.coelce.anomalia.persistence.TipoAnomaliaContainer;
-import br.com.coelce.anomalia.util.StringUtils;
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.event.ShortcutAction;
-import com.vaadin.server.FileResource;
-import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.window.WindowMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Embedded;
-import com.vaadin.ui.Field;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.ProgressBar;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.Upload;
 import com.vaadin.ui.Window;
-import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -41,8 +31,6 @@ import javax.inject.Inject;
  */
 public class TipoAnomaliaWindow extends Window implements Button.ClickListener{
     
-//    @PropertyId("sigla")
-//    private TextField siglaField;
     @PropertyId("tipo")
     private TextField nome;
     @PropertyId("descricao")
@@ -58,11 +46,7 @@ public class TipoAnomaliaWindow extends Window implements Button.ClickListener{
     @Inject
     private TipoAnomaliaContainer container;
 
-//    public ParlamentarWindow(ParlamentarContainer container) {
-//        this.container = container;
-////        init();
-//        setModal(true);
-//    }
+
     @PostConstruct
     public void init() {
         addStyleName("profile-window");
@@ -96,20 +80,7 @@ public class TipoAnomaliaWindow extends Window implements Button.ClickListener{
         descricao = new TextField("Descrição");
         descricao.setNullRepresentation("");
         layout.addComponent(descricao);
-//        image = new Embedded("Anexo", new ThemeResource("img/pdf-icon.png"));
-//        layout.addComponent(image);
-//        progressBar = new ProgressBar();
-//        progressBar.setVisible(false);
-//        layout.addComponent(progressBar);
-//        imageUploader = new ImageUploader(image, progressBar);
-//        upload = new Upload("Envie o arquivo", imageUploader);
-//        upload.setButtonCaption("Enviar");
-//        upload.addStartedListener(imageUploader);
-//        upload.addProgressListener(imageUploader);
-//        upload.addFailedListener(imageUploader);
-//        upload.addSucceededListener(imageUploader);
-//        upload.addFinishedListener(imageUploader);
-//        layout.addComponent(upload);
+
         
         layout.addComponent(buttons);
         binder = new BeanFieldGroup<>(TipoAnomalia.class);

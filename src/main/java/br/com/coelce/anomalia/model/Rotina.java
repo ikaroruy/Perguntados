@@ -22,17 +22,18 @@ public class Rotina implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     private String nome;
-    
+
     private String descricao;
-    
+
     private Integer tempoEstimado;
-    
+
     @ManyToOne
     private Operador operador;
-    
-    
+
+    @ManyToOne
+    private Processo processo;
 
     public Long getId() {
         return id;
@@ -73,11 +74,12 @@ public class Rotina implements Serializable {
     public void setOperador(Operador operador) {
         this.operador = operador;
     }
-    
-    
 
-    
-    
+    public Processo getProcesso() {
+        return processo;
+    }
 
-    
+    public void setProcesso(Processo processo) {
+        this.processo = processo;
+    }
 }
