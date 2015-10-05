@@ -6,6 +6,7 @@
 package br.com.coelce.anomalia.model;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -23,17 +25,14 @@ public class Anomalia implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id;
 
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     private Date dataOcorrencia;
 
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     private Date dataCorrecao;
-    
-    @Temporal(javax.persistence.TemporalType.TIME)
-    private Date horaOcorrencia;
-
+   
     private String status;
     
     @ManyToOne
@@ -50,14 +49,29 @@ public class Anomalia implements Serializable {
 
     @ManyToOne
     private Diretoria diretoria;
+    
+    @ManyToOne
+    private Operador operador;
+    
+    @ManyToOne
+    private Locais local;
+
+    private String texto1;
+    
+    private String texto2;
+    
+    private String texto3;
+    
+    private String texto4;
+    
 
    
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = "RAN" + id;
     }
 
     public Date getDataOcorrencia() {
@@ -100,13 +114,6 @@ public class Anomalia implements Serializable {
         this.tipoAnomalia = tipoAnomalia;
     }
     
-    public Date getHoraOcorrencia() {
-        return horaOcorrencia;
-    }
-
-    public void setHoraOcorrencia(Date horaOcorrencia) {
-        this.horaOcorrencia = horaOcorrencia;
-    }
     
      public Rotina getRotina() {
         return rotina;
@@ -130,5 +137,53 @@ public class Anomalia implements Serializable {
 
     public void setDiretoria(Diretoria diretoria) {
         this.diretoria = diretoria;
+    }
+    
+    public Operador getOperador() {
+        return operador;
+    }
+
+    public void setOperador(Operador operador) {
+        this.operador = operador;
+    }
+
+    public String getTexto1() {
+        return texto1;
+    }
+
+    public void setTexto1(String texto1) {
+        this.texto1 = texto1;
+    }
+
+    public String getTexto2() {
+        return texto2;
+    }
+
+    public void setTexto2(String texto2) {
+        this.texto2 = texto2;
+    }
+
+    public String getTexto3() {
+        return texto3;
+    }
+
+    public void setTexto3(String texto3) {
+        this.texto3 = texto3;
+    }
+
+    public String getTexto4() {
+        return texto4;
+    }
+
+    public void setTexto4(String texto4) {
+        this.texto4 = texto4;
+    }
+    
+    public Locais getLocal() {
+        return local;
+    }
+
+    public void setLocal(Locais local) {
+        this.local = local;
     }
 }

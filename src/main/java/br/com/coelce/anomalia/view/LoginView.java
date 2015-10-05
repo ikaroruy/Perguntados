@@ -20,7 +20,6 @@ import com.vaadin.shared.Position;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
@@ -154,7 +153,7 @@ public class LoginView extends VerticalLayout implements View, ClickListener {
 
     private void teste() {
         Notification notification = new Notification(
-                "Welcome to Dashboard Demo");
+                "");
         notification
                 .setDescription("<span>This application is not real, it only demonstrates an application built with the <a href=\"https://vaadin.com\">Vaadin framework</a>.</span> <span>No username or password is required, just click the <b>Sign In</b> button to continue.</span>");
         notification.setHtmlContentAllowed(true);

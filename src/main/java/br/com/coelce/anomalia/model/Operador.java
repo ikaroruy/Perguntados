@@ -20,7 +20,9 @@ public class Operador implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+  
+    private String matricula;
+
     private String nome;
   
     public String getNome() {
@@ -37,6 +39,14 @@ public class Operador implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+    
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
     }
     
 }

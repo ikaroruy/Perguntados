@@ -5,10 +5,7 @@
  */
 package br.com.coelce.anomalia.view;
 
-import br.com.coelce.anomalia.model.Processo;
-import br.com.coelce.anomalia.persistence.DiretoriaContainer;
 import br.com.coelce.anomalia.persistence.ProcessoContainer;
-import br.com.coelce.anomalia.view.form.AcaoWindow;
 import br.com.coelce.anomalia.view.form.ProcessoWindow;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.cdi.CDIView;
@@ -76,6 +73,7 @@ public class ProcessoView extends VerticalLayout implements View{
 //           createReport = buildCreateReport();
         Component buildFilter = buildFilter();
         HorizontalLayout buildBarButtons = buildBarButtons(container);
+        buildBarButtons.setSpacing(true);
         HorizontalLayout tools = new HorizontalLayout(buildFilter, buildBarButtons);
         tools.setComponentAlignment(buildFilter, Alignment.MIDDLE_CENTER);
         tools.setComponentAlignment(buildBarButtons, Alignment.MIDDLE_CENTER);
@@ -98,22 +96,9 @@ public class ProcessoView extends VerticalLayout implements View{
 
         tableReturn.setContainerDataSource(container);
 //        container.addNestedContainerProperty("diretoria.id");
-        container.addNestedContainerProperty("rotina.nome");
-        tableReturn.setVisibleColumns(new Object[]{"id", "nome", "descricao", "tempoEstimado","rotina.nome"});
-        tableReturn.setColumnHeaders(new String[]{"Código", "Nome", "Descrição","Tempo estimado","Rotinas"});
-//        tableReturn.addGeneratedColumn("logotipo", new Table.ColumnGenerator() {
-//
-//            @Override
-//            public Object generateCell(Table source, Object itemId, Object columnId) {
-//                Property itemProperty = source.getItem(itemId).getItemProperty(columnId);
-//                if (itemProperty.getValue()==null){
-//                    return new Label("Sem imagem");
-//                }
-//                return new Embedded("", new FileResource(new File(itemProperty.getValue().toString())));
-////                return new Image("", new FileResource(new File(itemProperty.getValue().toString())));
-//            }
-//        });
-//        tableReturn.setItemIcon(this, null);
+//        container.addNestedContainerProperty("rotina.nome");
+        tableReturn.setVisibleColumns(new Object[]{"id", "nome", "descricao"});
+        tableReturn.setColumnHeaders(new String[]{"Código", "Nome", "Descrição"});
         tableReturn.addValueChangeListener(new Property.ValueChangeListener() {
 
             @Override
@@ -131,8 +116,8 @@ public class ProcessoView extends VerticalLayout implements View{
             public void textChange(final FieldEvents.TextChangeEvent event) {
                 Container.Filterable data = (Container.Filterable) table.getContainerDataSource();
                 data.removeAllContainerFilters();
-                Or or = new Or(new Like("sigla", event.getText() + "%", false),
-                        new Like("nome", event.getText() + "%", false));
+                Or or = new Or(new Like("nome", event.getText() + "%"),
+                               new Like("descricao", event.getText() + "%"));
                 data.addContainerFilter(or);
             }
         });

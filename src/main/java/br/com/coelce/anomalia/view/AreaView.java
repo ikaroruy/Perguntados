@@ -5,9 +5,7 @@
  */
 package br.com.coelce.anomalia.view;
 
-import br.com.coelce.anomalia.persistence.AcaoContainer;
 import br.com.coelce.anomalia.persistence.AreaContainer;
-import br.com.coelce.anomalia.view.form.AcaoWindow;
 import br.com.coelce.anomalia.view.form.AreaWindow;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.cdi.CDIView;
@@ -76,6 +74,7 @@ public class AreaView extends VerticalLayout implements View {
 //        createReport = buildCreateReport();
         Component buildFilter = buildFilter();
         HorizontalLayout buildBarButtons = buildBarButtons(container);
+        buildBarButtons.setSpacing(true);
         HorizontalLayout tools = new HorizontalLayout(buildFilter, buildBarButtons);
         tools.setComponentAlignment(buildFilter, Alignment.MIDDLE_CENTER);
         tools.setComponentAlignment(buildBarButtons, Alignment.MIDDLE_CENTER);
@@ -97,21 +96,10 @@ public class AreaView extends VerticalLayout implements View {
         tableReturn.setColumnReorderingAllowed(true);
         tableReturn.setContainerDataSource(container);
         container.addNestedContainerProperty("diretoria.nome");
-        tableReturn.setVisibleColumns(new Object[]{"id", "nome", "descricao", "diretoria.nome"});
-        tableReturn.setColumnHeaders(new String[]{"Código", "Nome", "Descrição", "Diretoria"});
-//        tableReturn.addGeneratedColumn("logotipo", new Table.ColumnGenerator() {
-//
-//            @Override
-//            public Object generateCell(Table source, Object itemId, Object columnId) {
-//                Property itemProperty = source.getItem(itemId).getItemProperty(columnId);
-//                if (itemProperty.getValue()==null){
-//                    return new Label("Sem imagem");
-//                }
-//                return new Embedded("", new FileResource(new File(itemProperty.getValue().toString())));
-////                return new Image("", new FileResource(new File(itemProperty.getValue().toString())));
-//            }
-//        });
-//        tableReturn.setItemIcon(this, null);
+       
+        
+        tableReturn.setVisibleColumns(new Object[]{"id", "nome","descricao", "diretoria.nome"});
+        tableReturn.setColumnHeaders(new String[]{"Código", "Nome","Descrição", "Diretoria"});
         tableReturn.addValueChangeListener(new Property.ValueChangeListener() {
 
             @Override
@@ -129,8 +117,9 @@ public class AreaView extends VerticalLayout implements View {
             public void textChange(final FieldEvents.TextChangeEvent event) {
                 Container.Filterable data = (Container.Filterable) table.getContainerDataSource();
                 data.removeAllContainerFilters();
-                Or or = new Or(new Like("sigla", event.getText() + "%", false),
-                        new Like("nome", event.getText() + "%", false));
+                Or or = new Or(new Like("nome", event.getText() + "%"),
+                               new Like("descricao", event.getText() + "%"),
+                               new Like("diretoria.nome", event.getText() + "%"));
                 data.addContainerFilter(or);
             }
         });
@@ -175,8 +164,6 @@ public class AreaView extends VerticalLayout implements View {
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 areaWindow.edit(table.getValue().toString());
-//                ParlamentarWindow window = new ParlamentarWindow(container);
-//                window.edit(table.getValue().toString());
             }
         });
         Button[] buttons = {bIncluir, editButton, bAtualizar};

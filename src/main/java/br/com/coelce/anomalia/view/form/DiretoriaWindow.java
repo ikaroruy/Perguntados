@@ -11,12 +11,13 @@ import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.event.ShortcutAction;
+import com.vaadin.server.Page;
 import com.vaadin.shared.ui.window.WindowMode;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Embedded;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
@@ -29,14 +30,12 @@ import javax.inject.Inject;
  *
  * @author dunkelheit
  */
-public class DiretoriaWindow extends Window implements Button.ClickListener{
+public class DiretoriaWindow extends Window implements Button.ClickListener {
 
     @PropertyId("nome")
-    private TextField nome;
+    private TextField nomeField;
     @PropertyId("descricao")
-    private TextField descricao;
-    private Embedded image;
-    
+    private TextArea descricaoField;
     private FormLayout layout;
     private BeanFieldGroup<Diretoria> binder;
     private HorizontalLayout buttons;
@@ -46,13 +45,9 @@ public class DiretoriaWindow extends Window implements Button.ClickListener{
     @Inject
     private DiretoriaContainer container;
 
-//    public ParlamentarWindow(ParlamentarContainer container) {
-//        this.container = container;
-////        init();
-//        setModal(true);
-//    }
     @PostConstruct
     public void init() {
+        Page.getCurrent().setTitle("Diretoria | Gestão da Rotina");
         addStyleName("profile-window");
         setModal(true);
         setWindowMode(WindowMode.MAXIMIZED);
@@ -73,18 +68,21 @@ public class DiretoriaWindow extends Window implements Button.ClickListener{
         bExcluir.setVisible(false);
 
         buttons = new HorizontalLayout();
+        buttons.setSpacing(true);
         buttons.addComponent(bSalvar);
         buttons.addComponent(bCancelar);
         buttons.addComponent(bExcluir);
 
         setContent(layout);
-        nome = new TextField("Nome");
-        nome.setNullRepresentation("");
-        layout.addComponent(nome);
-        descricao = new TextField("Descrição");
-        descricao.setNullRepresentation("");
-        layout.addComponent(descricao);
-        
+        nomeField = new TextField("Nome");
+        nomeField.setNullRepresentation("");
+        layout.addComponent(nomeField);
+
+        descricaoField = new TextArea("Descrição");
+        descricaoField.setWidth(775, Unit.PIXELS);
+        descricaoField.setNullRepresentation("");
+        layout.addComponent(descricaoField);
+
         layout.addComponent(buttons);
         binder = new BeanFieldGroup<>(Diretoria.class);
         binder.bindMemberFields(this);
@@ -104,19 +102,12 @@ public class DiretoriaWindow extends Window implements Button.ClickListener{
             bExcluir.setVisible(true);
             UI.getCurrent().addWindow(this);
         } catch (IllegalArgumentException | NullPointerException ex) {
-            Notification.show("Não consegui abrir diretoria para edição!\n" + ex.getMessage(), Notification.Type.ERROR_MESSAGE);
+            Notification.show("Não consegui abrir diretoria para edição!\n", Notification.Type.ERROR_MESSAGE);
         }
     }
 
     private void bindingFields(Diretoria m) {
         binder.setItemDataSource(m);
-//        if (!StringUtils.INSTANCE.isNullOrBlank(m.getDescricao())) {
-//            image.setSource(new FileResource(new File(m.getDescricao())));
-//        }
-//        Field<?> field = null;
-//        field = binder.buildAndBind("Nome", "tipo");
-//        field.setWidth("100%");
-//        layout.addComponent(field);
     }
 
     @Override
@@ -129,7 +120,6 @@ public class DiretoriaWindow extends Window implements Button.ClickListener{
             }
             try {
                 container.addEntity(binder.getItemDataSource().getBean());
-                //log.debug("Mercadoria persistida!");
                 Notification.show("Nova diretoria cadastrada!", Notification.Type.HUMANIZED_MESSAGE);
             } catch (UnsupportedOperationException | IllegalStateException e) {
                 Logger.getLogger(DiretoriaWindow.class.getSimpleName()).log(Level.SEVERE, "", e);

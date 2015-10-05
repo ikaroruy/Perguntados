@@ -9,6 +9,6 @@ package br.com.coelce.anomalia.model;
  *
  * @author dunkelheit
  */
-public class TipoPermissao {
-    
+public enum TipoPermissao {
+   ADMIN, USUARIO
 }

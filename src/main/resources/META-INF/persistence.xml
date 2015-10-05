@@ -6,6 +6,7 @@
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
       <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>

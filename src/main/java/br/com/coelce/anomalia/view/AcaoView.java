@@ -18,13 +18,11 @@ import com.vaadin.event.ShortcutAction;
 import com.vaadin.event.ShortcutListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.FileResource;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Responsive;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.Embedded;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
@@ -32,7 +30,6 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.Runo;
 import com.vaadin.ui.themes.ValoTheme;
-import java.io.File;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 
@@ -59,6 +56,7 @@ public class AcaoView extends VerticalLayout implements View {
             table = buildTable();
             addComponent(table);
             setExpandRatio(table, 1);
+            
         }
     }
 
@@ -77,6 +75,7 @@ public class AcaoView extends VerticalLayout implements View {
 //        createReport = buildCreateReport();
         Component buildFilter = buildFilter();
         HorizontalLayout buildBarButtons = buildBarButtons(container);
+        buildBarButtons.setSpacing(true);
         HorizontalLayout tools = new HorizontalLayout(buildFilter, buildBarButtons);
         tools.setComponentAlignment(buildFilter, Alignment.MIDDLE_CENTER);
         tools.setComponentAlignment(buildBarButtons, Alignment.MIDDLE_CENTER);
@@ -96,24 +95,10 @@ public class AcaoView extends VerticalLayout implements View {
         tableReturn.setSelectable(true);
         tableReturn.setColumnCollapsingAllowed(true);
         tableReturn.setColumnReorderingAllowed(true);
-
         tableReturn.setContainerDataSource(container);
-//        container.addNestedContainerProperty("anomalia.id");
-        tableReturn.setVisibleColumns(new Object[]{"id", "nome", "descricao", "dataInicio", "dataTermino"});
-        tableReturn.setColumnHeaders(new String[]{"Código", "Nome", "Descrição", "Data de Início", "Data de Término"});
-//        tableReturn.addGeneratedColumn("logotipo", new Table.ColumnGenerator() {
-//
-//            @Override
-//            public Object generateCell(Table source, Object itemId, Object columnId) {
-//                Property itemProperty = source.getItem(itemId).getItemProperty(columnId);
-//                if (itemProperty.getValue()==null){
-//                    return new Label("Sem imagem");
-//                }
-//                return new Embedded("", new FileResource(new File(itemProperty.getValue().toString())));
-////                return new Image("", new FileResource(new File(itemProperty.getValue().toString())));
-//            }
-//        });
-//        tableReturn.setItemIcon(this, null);
+        container.addNestedContainerProperty("anomalia.id");
+        tableReturn.setVisibleColumns(new Object[]{"id", "nome", "descricao", "anomalia.id", "dataInicio", "dataTermino"});
+        tableReturn.setColumnHeaders(new String[]{"Código", "Nome", "Descrição","Código da anomalia" , "Data de Início", "Data de Término"});
         tableReturn.addValueChangeListener(new Property.ValueChangeListener() {
 
             @Override
@@ -131,8 +116,8 @@ public class AcaoView extends VerticalLayout implements View {
             public void textChange(final FieldEvents.TextChangeEvent event) {
                 Container.Filterable data = (Container.Filterable) table.getContainerDataSource();
                 data.removeAllContainerFilters();
-                Or or = new Or(new Like("sigla", event.getText() + "%", false),
-                        new Like("nome", event.getText() + "%", false));
+                Or or = new Or(new Like("nome", event.getText() + "%"),
+                               new Like("descricao", event.getText() + "%"));
                 data.addContainerFilter(or);
             }
         });
@@ -177,8 +162,6 @@ public class AcaoView extends VerticalLayout implements View {
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 acaoWindow.edit(table.getValue().toString());
-//                ParlamentarWindow window = new ParlamentarWindow(container);
-//                window.edit(table.getValue().toString());
             }
         });
         Button[] buttons = {bIncluir, editButton, bAtualizar};

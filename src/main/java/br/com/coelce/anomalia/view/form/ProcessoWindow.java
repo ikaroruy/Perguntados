@@ -6,20 +6,18 @@
 package br.com.coelce.anomalia.view.form;
 
 import br.com.coelce.anomalia.model.Processo;
-import br.com.coelce.anomalia.model.Rotina;
-import br.com.coelce.anomalia.persistence.OperadorContainer;
 import br.com.coelce.anomalia.persistence.ProcessoContainer;
-import br.com.coelce.anomalia.persistence.RotinaContainer;
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.event.ShortcutAction;
+import com.vaadin.server.Page;
 import com.vaadin.shared.ui.window.WindowMode;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
@@ -27,7 +25,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import org.vaadin.thomas.timefield.TimeField;
 
 /**
  *
@@ -38,10 +35,7 @@ public class ProcessoWindow extends Window implements Button.ClickListener {
     @PropertyId("nome")
     private TextField nomeField;
     @PropertyId("descricao")
-    private TextField descricaoField;
-    
-    private TimeField tempoField;
-            
+    private TextArea descricaoField;
     private FormLayout layout;
     private BeanFieldGroup<Processo> binder;
     private HorizontalLayout buttons;
@@ -53,6 +47,7 @@ public class ProcessoWindow extends Window implements Button.ClickListener {
 
     @PostConstruct
     public void init() {
+        Page.getCurrent().setTitle("Processos | Gestão da Rotina");
         addStyleName("profile-window");
         setModal(true);
         setWindowMode(WindowMode.MAXIMIZED);
@@ -73,6 +68,7 @@ public class ProcessoWindow extends Window implements Button.ClickListener {
         bExcluir.setVisible(false);
 
         buttons = new HorizontalLayout();
+        buttons.setSpacing(true);
         buttons.addComponent(bSalvar);
         buttons.addComponent(bCancelar);
         buttons.addComponent(bExcluir);
@@ -81,13 +77,12 @@ public class ProcessoWindow extends Window implements Button.ClickListener {
         nomeField = new TextField("Nome");
         nomeField.setNullRepresentation("");
         layout.addComponent(nomeField);
-        descricaoField = new TextField("Descrição");
+
+        descricaoField = new TextArea("Descrição");
+        descricaoField.setWidth(775, Unit.PIXELS);
         descricaoField.setNullRepresentation("");
         layout.addComponent(descricaoField);
-        tempoField = new TimeField("Tempo estimado");
-        layout.addComponent(tempoField);
-    
-        
+
         layout.addComponent(buttons);
         binder = new BeanFieldGroup<>(Processo.class);
         binder.bindMemberFields(this);
@@ -108,20 +103,12 @@ public class ProcessoWindow extends Window implements Button.ClickListener {
             bExcluir.setVisible(true);
             UI.getCurrent().addWindow(this);
         } catch (IllegalArgumentException | NullPointerException ex) {
-            Notification.show("Não consegui abrir o processo para edição!\n" + ex.getMessage(), Notification.Type.ERROR_MESSAGE);
+            Notification.show("Não consegui abrir o processo para edição!\n", Notification.Type.ERROR_MESSAGE);
         }
     }
 
     private void bindingFields(Processo m) {
         binder.setItemDataSource(m);
-//        if (!StringUtils.INSTANCE.isNullOrBlank(m.getDescricao())) {
-//            image.setSource(new FileResource(new File(m.getDescricao())));
-//        }
-//        Field<?> field = null;
-//        field = binder.buildAndBind("Nome", "tipo");
-//        field.setWidth("100%");
-//        layout.addComponent(field);
-//      
     }
 
     @Override

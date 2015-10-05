@@ -9,11 +9,7 @@ package br.com.coelce.anomalia.view;
  *
  * @author dunkelheit
  */
-import br.com.coelce.anomalia.persistence.AcaoContainer;
-import br.com.coelce.anomalia.persistence.DiretoriaContainer;
 import br.com.coelce.anomalia.persistence.OperadorContainer;
-import br.com.coelce.anomalia.view.form.AcaoWindow;
-import br.com.coelce.anomalia.view.form.DiretoriaWindow;
 import br.com.coelce.anomalia.view.form.OperadorWindow;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.cdi.CDIView;
@@ -49,7 +45,7 @@ import javax.inject.Inject;
 public class OperadorView extends VerticalLayout implements View {
 
     private static final Logger LOGGER = Logger.getLogger(OperadorView.class.getSimpleName());
-    public static final String VIEW_NAME = "operador";
+    public static final String VIEW_NAME = "operadores";
     private Table table;
     @Inject
     private OperadorContainer container;
@@ -73,7 +69,7 @@ public class OperadorView extends VerticalLayout implements View {
         header.setSpacing(true);
         Responsive.makeResponsive(header);
 
-        Label title = new Label("Cadastro de operador");
+        Label title = new Label("Cadastro de operadores");
         title.setSizeUndefined();
         title.addStyleName(ValoTheme.LABEL_H1);
         title.addStyleName(ValoTheme.LABEL_NO_MARGIN);
@@ -82,6 +78,7 @@ public class OperadorView extends VerticalLayout implements View {
 //           createReport = buildCreateReport();
         Component buildFilter = buildFilter();
         HorizontalLayout buildBarButtons = buildBarButtons(container);
+        buildBarButtons.setSpacing(true);
         HorizontalLayout tools = new HorizontalLayout(buildFilter, buildBarButtons);
         tools.setComponentAlignment(buildFilter, Alignment.MIDDLE_CENTER);
         tools.setComponentAlignment(buildBarButtons, Alignment.MIDDLE_CENTER);
@@ -123,8 +120,7 @@ public class OperadorView extends VerticalLayout implements View {
             public void textChange(final FieldEvents.TextChangeEvent event) {
                 Container.Filterable data = (Container.Filterable) table.getContainerDataSource();
                 data.removeAllContainerFilters();
-                Or or = new Or(new Like("sigla", event.getText() + "%", false),
-                        new Like("nome", event.getText() + "%", false));
+                Or or = new Or(new Like("nome", event.getText() + "%"));
                 data.addContainerFilter(or);
             }
         });

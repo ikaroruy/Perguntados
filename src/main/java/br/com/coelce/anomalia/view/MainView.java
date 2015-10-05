@@ -5,6 +5,8 @@
  */
 package br.com.coelce.anomalia.view;
 
+import br.com.coelce.anomalia.model.Usuario;
+import com.vaadin.server.Page;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
@@ -20,12 +22,12 @@ public class MainView extends HorizontalLayout {
     @Inject
     private DashboardMenu dashboardMenu;
     private ComponentContainer content;
-
+    
     @PostConstruct
     public void init() {
+        Page.getCurrent().setTitle("Login | Gestão da Rotina");
         setSizeFull();
         addStyleName("mainview");
-
         addComponent(dashboardMenu);
 
         content = new CssLayout();

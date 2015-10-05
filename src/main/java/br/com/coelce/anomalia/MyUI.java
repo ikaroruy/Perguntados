@@ -11,6 +11,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 import javax.inject.Inject;
+import org.hibernate.annotations.common.util.impl.Log;
 
 /**
  *

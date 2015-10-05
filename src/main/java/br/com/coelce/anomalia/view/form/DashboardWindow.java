@@ -92,6 +92,7 @@ public class DashboardWindow extends Window {
     }
 
     public interface DashboardEditListener {
+
         void dashboardNameEdited(String name);
     }
 }

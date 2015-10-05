@@ -27,7 +27,6 @@ public class Processo implements Serializable {
 
     private String descricao;
     
-    private Integer tempoEstimado;
     
     @ManyToOne
     private Rotina rotina;
@@ -54,14 +53,6 @@ public class Processo implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public Integer getTempoEstimado() {
-        return tempoEstimado;
-    }
-
-    public void setTempoEstimado(Integer tempoEstimado) {
-        this.tempoEstimado = tempoEstimado;
     }
 
     public Rotina getRotina() {

@@ -5,11 +5,7 @@
  */
 package br.com.coelce.anomalia.view;
 
-import br.com.coelce.anomalia.persistence.AcaoContainer;
-import br.com.coelce.anomalia.persistence.AreaContainer;
 import br.com.coelce.anomalia.persistence.RotinaContainer;
-import br.com.coelce.anomalia.view.form.AcaoWindow;
-import br.com.coelce.anomalia.view.form.AreaWindow;
 import br.com.coelce.anomalia.view.form.RotinaWindow;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.cdi.CDIView;
@@ -78,6 +74,7 @@ public class RotinaView extends VerticalLayout implements View {
 //        createReport = buildCreateReport();
         Component buildFilter = buildFilter();
         HorizontalLayout buildBarButtons = buildBarButtons(container);
+        buildBarButtons.setSpacing(true);
         HorizontalLayout tools = new HorizontalLayout(buildFilter, buildBarButtons);
         tools.setComponentAlignment(buildFilter, Alignment.MIDDLE_CENTER);
         tools.setComponentAlignment(buildBarButtons, Alignment.MIDDLE_CENTER);
@@ -98,9 +95,10 @@ public class RotinaView extends VerticalLayout implements View {
         tableReturn.setColumnCollapsingAllowed(true);
         tableReturn.setColumnReorderingAllowed(true);
         tableReturn.setContainerDataSource(container);
+        container.addNestedContainerProperty("processo.nome");
         container.addNestedContainerProperty("operador.nome");
-        tableReturn.setVisibleColumns(new Object[]{"id", "nome", "descricao", "operador.nome"});
-        tableReturn.setColumnHeaders(new String[]{"Código", "Nome", "Descrição", "Operador"});
+        tableReturn.setVisibleColumns(new Object[]{"id", "nome", "descricao","processo.nome" ,"operador.nome"});
+        tableReturn.setColumnHeaders(new String[]{"Código", "Nome", "Descrição","Processo", "Operador"});
         tableReturn.addValueChangeListener(new Property.ValueChangeListener() {
 
             @Override
@@ -118,8 +116,10 @@ public class RotinaView extends VerticalLayout implements View {
             public void textChange(final FieldEvents.TextChangeEvent event) {
                 Container.Filterable data = (Container.Filterable) table.getContainerDataSource();
                 data.removeAllContainerFilters();
-                Or or = new Or(new Like("sigla", event.getText() + "%", false),
-                        new Like("nome", event.getText() + "%", false));
+                Or or = new Or(new Like("nome", event.getText() + "%"),
+                               new Like("descricao", event.getText() + "%"),
+                               new Like("processo.nome", event.getText() + "%"),
+                               new Like("operador.nome", event.getText() + "%"));
                 data.addContainerFilter(or);
             }
         });

@@ -1,0 +1,1 @@
+$wnd.br_com_coelce_anomalia_MyAppWidgetset.runAsyncCallback2('Ebb(1539,1,hTd);_.tc=function ebc(){nZb((!gZb&&(gZb=new sZb),gZb),this.a.d)};LMd(Th)(2);\n//# sourceURL=br.com.coelce.anomalia.MyAppWidgetset-2.js\n')

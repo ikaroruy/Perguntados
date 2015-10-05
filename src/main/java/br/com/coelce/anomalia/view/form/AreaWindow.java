@@ -6,19 +6,22 @@
 package br.com.coelce.anomalia.view.form;
 
 import br.com.coelce.anomalia.model.Area;
+import br.com.coelce.anomalia.model.Diretoria;
 import br.com.coelce.anomalia.persistence.AreaContainer;
 import br.com.coelce.anomalia.persistence.DiretoriaContainer;
+import com.vaadin.addon.jpacontainer.fieldfactory.SingleSelectConverter;
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.event.ShortcutAction;
+import com.vaadin.server.Page;
 import com.vaadin.shared.ui.window.WindowMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
-import com.vaadin.ui.Embedded;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
@@ -36,11 +39,9 @@ public class AreaWindow extends Window implements Button.ClickListener {
     @PropertyId("nome")
     private TextField nomeField;
     @PropertyId("descricao")
-    private TextField descricaoField;
-
+    private TextArea descricaoField;
+    @PropertyId("diretoria")
     private ComboBox diretoriaCombo;
-    private Embedded image;
-
     private FormLayout layout;
     private BeanFieldGroup<Area> binder;
     private HorizontalLayout buttons;
@@ -52,13 +53,9 @@ public class AreaWindow extends Window implements Button.ClickListener {
     @Inject
     private DiretoriaContainer diretoriaContainer;
 
-//    public ParlamentarWindow(ParlamentarContainer container) {
-//        this.container = container;
-////        init();
-//        setModal(true);
-//    }
     @PostConstruct
     public void init() {
+        Page.getCurrent().setTitle("Áreas | Gestão da Rotina");
         addStyleName("profile-window");
         setModal(true);
         setWindowMode(WindowMode.MAXIMIZED);
@@ -79,6 +76,7 @@ public class AreaWindow extends Window implements Button.ClickListener {
         bExcluir.setVisible(false);
 
         buttons = new HorizontalLayout();
+        buttons.setSpacing(true);
         buttons.addComponent(bSalvar);
         buttons.addComponent(bCancelar);
         buttons.addComponent(bExcluir);
@@ -87,11 +85,17 @@ public class AreaWindow extends Window implements Button.ClickListener {
         nomeField = new TextField("Nome");
         nomeField.setNullRepresentation("");
         layout.addComponent(nomeField);
-        descricaoField = new TextField("Descrição");
+
+        descricaoField = new TextArea("Descrição");
+        descricaoField.setWidth(775, Unit.PIXELS);
         descricaoField.setNullRepresentation("");
         layout.addComponent(descricaoField);
+
         diretoriaCombo = new ComboBox("Diretoria", diretoriaContainer);
         diretoriaCombo.setItemCaptionPropertyId("nome");
+        diretoriaCombo.setNullSelectionAllowed(false);
+        diretoriaCombo.setConverter(new SingleSelectConverter<Diretoria>(diretoriaCombo));
+        diretoriaCombo.setNewItemsAllowed(true);
         layout.addComponent(diretoriaCombo);
 
         layout.addComponent(buttons);
@@ -114,26 +118,17 @@ public class AreaWindow extends Window implements Button.ClickListener {
             bExcluir.setVisible(true);
             UI.getCurrent().addWindow(this);
         } catch (IllegalArgumentException | NullPointerException ex) {
-            Notification.show("Não consegui abrir área para edição!\n" + ex.getMessage(), Notification.Type.ERROR_MESSAGE);
+            Notification.show("Não consegui abrir área para edição!\n", Notification.Type.ERROR_MESSAGE);
         }
     }
 
     private void bindingFields(Area m) {
         binder.setItemDataSource(m);
-//        if (!StringUtils.INSTANCE.isNullOrBlank(m.getDescricao())) {
-//            image.setSource(new FileResource(new File(m.getDescricao())));
-//        }
-//        Field<?> field = null;
-//        field = binder.buildAndBind("Nome", "tipo");
-//        field.setWidth("100%");
-//        layout.addComponent(field);
-//      
     }
 
     @Override
     public void buttonClick(Button.ClickEvent event) {
         if (event.getButton() == bSalvar) {
-            System.out.println(diretoriaCombo.getValue());
             try {
                 binder.commit();
             } catch (FieldGroup.CommitException ex) {
@@ -141,7 +136,6 @@ public class AreaWindow extends Window implements Button.ClickListener {
             }
             try {
                 container.addEntity(binder.getItemDataSource().getBean());
-                //log.debug("Mercadoria persistida!");
                 Notification.show("Nova área cadastrada!", Notification.Type.HUMANIZED_MESSAGE);
             } catch (UnsupportedOperationException | IllegalStateException e) {
                 Logger.getLogger(AreaWindow.class.getSimpleName()).log(Level.SEVERE, "", e);

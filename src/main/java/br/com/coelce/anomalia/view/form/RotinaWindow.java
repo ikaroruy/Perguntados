@@ -5,20 +5,25 @@
  */
 package br.com.coelce.anomalia.view.form;
 
+import br.com.coelce.anomalia.model.Operador;
+import br.com.coelce.anomalia.model.Processo;
 import br.com.coelce.anomalia.model.Rotina;
 import br.com.coelce.anomalia.persistence.OperadorContainer;
 import br.com.coelce.anomalia.persistence.ProcessoContainer;
 import br.com.coelce.anomalia.persistence.RotinaContainer;
+import com.vaadin.addon.jpacontainer.fieldfactory.SingleSelectConverter;
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.event.ShortcutAction;
+import com.vaadin.server.Page;
 import com.vaadin.shared.ui.window.WindowMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
@@ -36,11 +41,12 @@ public class RotinaWindow extends Window implements Button.ClickListener {
     @PropertyId("nome")
     private TextField nomeField;
     @PropertyId("descricao")
-    private TextField descricaoField;
-
+    private TextArea descricaoField;
+    @PropertyId("operador")
     private ComboBox operadorCombo;
+    @PropertyId("processo")
     private ComboBox processoCombo;
-    
+
     private FormLayout layout;
     private BeanFieldGroup<Rotina> binder;
     private HorizontalLayout buttons;
@@ -54,13 +60,9 @@ public class RotinaWindow extends Window implements Button.ClickListener {
     @Inject
     private ProcessoContainer processoContainer;
 
-//    public ParlamentarWindow(ParlamentarContainer container) {
-//        this.container = container;
-////        init();
-//        setModal(true);
-//    }
     @PostConstruct
     public void init() {
+        Page.getCurrent().setTitle("Rotinas | Gestão da Rotina");
         addStyleName("profile-window");
         setModal(true);
         setWindowMode(WindowMode.MAXIMIZED);
@@ -81,6 +83,7 @@ public class RotinaWindow extends Window implements Button.ClickListener {
         bExcluir.setVisible(false);
 
         buttons = new HorizontalLayout();
+        buttons.setSpacing(true);
         buttons.addComponent(bSalvar);
         buttons.addComponent(bCancelar);
         buttons.addComponent(bExcluir);
@@ -89,16 +92,24 @@ public class RotinaWindow extends Window implements Button.ClickListener {
         nomeField = new TextField("Nome");
         nomeField.setNullRepresentation("");
         layout.addComponent(nomeField);
-        descricaoField = new TextField("Descrição");
+
+        descricaoField = new TextArea("Descrição");
+        descricaoField.setWidth(775, Unit.PIXELS);
         descricaoField.setNullRepresentation("");
         layout.addComponent(descricaoField);
-        operadorCombo = new ComboBox("Operador", operadorContainer);
-        operadorCombo.setItemCaptionPropertyId("nome");
-        layout.addComponent(operadorCombo);
+
         processoCombo = new ComboBox("Processo", processoContainer);
         processoCombo.setItemCaptionPropertyId("nome");
+        processoCombo.setNullSelectionAllowed(false);
+        processoCombo.setConverter(new SingleSelectConverter<Processo>(processoCombo));
         layout.addComponent(processoCombo);
-        
+
+        operadorCombo = new ComboBox("Operador", operadorContainer);
+        operadorCombo.setItemCaptionPropertyId("nome");
+        operadorCombo.setNullSelectionAllowed(false);
+        operadorCombo.setConverter(new SingleSelectConverter<Operador>(operadorCombo));
+        layout.addComponent(operadorCombo);
+
         layout.addComponent(buttons);
         binder = new BeanFieldGroup<>(Rotina.class);
         binder.bindMemberFields(this);
@@ -119,26 +130,17 @@ public class RotinaWindow extends Window implements Button.ClickListener {
             bExcluir.setVisible(true);
             UI.getCurrent().addWindow(this);
         } catch (IllegalArgumentException | NullPointerException ex) {
-            Notification.show("Não consegui abrir a rotina para edição!\n" + ex.getMessage(), Notification.Type.ERROR_MESSAGE);
+            Notification.show("Não consegui abrir a rotina para edição!\n", Notification.Type.ERROR_MESSAGE);
         }
     }
 
     private void bindingFields(Rotina m) {
         binder.setItemDataSource(m);
-//        if (!StringUtils.INSTANCE.isNullOrBlank(m.getDescricao())) {
-//            image.setSource(new FileResource(new File(m.getDescricao())));
-//        }
-//        Field<?> field = null;
-//        field = binder.buildAndBind("Nome", "tipo");
-//        field.setWidth("100%");
-//        layout.addComponent(field);
-//      
     }
 
     @Override
     public void buttonClick(Button.ClickEvent event) {
         if (event.getButton() == bSalvar) {
-            System.out.println(operadorCombo.getValue());
             try {
                 binder.commit();
             } catch (FieldGroup.CommitException ex) {
@@ -146,7 +148,6 @@ public class RotinaWindow extends Window implements Button.ClickListener {
             }
             try {
                 container.addEntity(binder.getItemDataSource().getBean());
-                //log.debug("Mercadoria persistida!");
                 Notification.show("Nova rotina cadastrada!", Notification.Type.HUMANIZED_MESSAGE);
             } catch (UnsupportedOperationException | IllegalStateException e) {
                 Logger.getLogger(AreaWindow.class.getSimpleName()).log(Level.SEVERE, "", e);

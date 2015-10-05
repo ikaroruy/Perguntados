@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -33,6 +34,9 @@ public class Acao implements Serializable {
 
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataTermino;
+    
+    @ManyToOne
+    private Anomalia anomalia;
 
     public Long getId() {
         return id;
@@ -72,6 +76,14 @@ public class Acao implements Serializable {
 
     public void setDataTermino(Date dataTermino) {
         this.dataTermino = dataTermino;
+    }
+    
+     public Anomalia getAnomalia() {
+        return anomalia;
+    }
+
+    public void setAnomalia(Anomalia anomalia) {
+        this.anomalia = anomalia;
     }
 
 }

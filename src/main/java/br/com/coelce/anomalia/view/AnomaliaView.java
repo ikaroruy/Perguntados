@@ -11,6 +11,7 @@ import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.cdi.CDIView;
 import com.vaadin.data.Container;
 import com.vaadin.data.Property;
+import com.vaadin.data.util.converter.StringToDateConverter;
 import com.vaadin.data.util.filter.Like;
 import com.vaadin.data.util.filter.Or;
 import com.vaadin.event.FieldEvents;
@@ -30,6 +31,9 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.Runo;
 import com.vaadin.ui.themes.ValoTheme;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 
@@ -64,7 +68,7 @@ public class AnomaliaView extends VerticalLayout implements View {
         header.addStyleName("viewheader");
         header.setSpacing(true);
         Responsive.makeResponsive(header);
-                
+
         Label title = new Label("Cadastro de Anomalias");
         title.setSizeUndefined();
         title.addStyleName(ValoTheme.LABEL_H1);
@@ -74,6 +78,7 @@ public class AnomaliaView extends VerticalLayout implements View {
 //        createReport = buildCreateReport();
         Component buildFilter = buildFilter();
         HorizontalLayout buildBarButtons = buildBarButtons(container);
+        buildBarButtons.setSpacing(true);
         HorizontalLayout tools = new HorizontalLayout(buildFilter, buildBarButtons);
         tools.setComponentAlignment(buildFilter, Alignment.MIDDLE_CENTER);
         tools.setComponentAlignment(buildBarButtons, Alignment.MIDDLE_CENTER);
@@ -93,17 +98,27 @@ public class AnomaliaView extends VerticalLayout implements View {
         tableReturn.setSelectable(true);
         tableReturn.setColumnCollapsingAllowed(true);
         tableReturn.setColumnReorderingAllowed(true);
-
-        tableReturn.setContainerDataSource(container);
-        container.addNestedContainerProperty("acao.nome");
-        container.addNestedContainerProperty("tipoAnomalia.tipo");
-        container.addNestedContainerProperty("tipoAnomalia.descricao");
-        container.addNestedContainerProperty("rotina.nome");
-        container.addNestedContainerProperty("rotina.operador.nome");
         container.addNestedContainerProperty("area.nome");
+        container.addNestedContainerProperty("operador.nome");
+//        container.addNestedContainerProperty("operador.matricula");
+        container.addNestedContainerProperty("local.nome");
+        tableReturn.setContainerDataSource(container);
 //        container.addNestedContainerProperty("acao.sigla");
-        tableReturn.setVisibleColumns(new Object[]{"id", "tipoAnomalia.tipo", "tipoAnomalia.descricao", "rotina.nome" ,"rotina.operador.nome", "dataOcorrencia", "horaOcorrencia","dataCorrecao", "area.nome"});
-        tableReturn.setColumnHeaders(new String[]{"Código", "Classificação da Anomalia","Descrição", "Rotina" ,"Operador" , "Data da ocorrência", "Hora da ocorrência", "Data da correção", "Área"});
+        tableReturn.setVisibleColumns(new Object[]{"id", "area.nome","operador.nome",  
+            "dataOcorrencia", "local.nome", "texto1", "texto2", "texto3", "texto4"});
+        tableReturn.setColumnHeaders(new String[]{"Código", "Área","Operador", 
+            "Data da anomalia", "Local" , "O que aconteceu de diferente no serviço?",
+            "O que pode ter gerado o problema?", "Foi feito alguma coisa para corrigir o problema?",
+            "Se não, o que você sugere que seja feito?"
+        });
+        tableReturn.setConverter("dataOcorrencia", new StringToDateConverter() {
+            @Override
+            public DateFormat getFormat(Locale locale) {
+                return new SimpleDateFormat("dd/MM/yyyy");
+
+            }
+
+        });
         tableReturn.addValueChangeListener(new Property.ValueChangeListener() {
 
             @Override
@@ -121,8 +136,13 @@ public class AnomaliaView extends VerticalLayout implements View {
             public void textChange(final FieldEvents.TextChangeEvent event) {
                 Container.Filterable data = (Container.Filterable) table.getContainerDataSource();
                 data.removeAllContainerFilters();
-                Or or = new Or(new Like("acao.nome", event.getText() + "%", false),
-                        new Like("nome", event.getText() + "%", false));
+                Or or = new Or(new Like("area.nome", event.getText() + "%"), 
+                               new Like("operador.nome", event.getText() + "%"),
+                               new Like("local.nome", event.getText() + "%"), 
+                               new Like("texto1", event.getText() + "%"),
+                               new Like("texto2", event.getText() + "%"),
+                               new Like("texto3", event.getText() + "%"),
+                               new Like("texto4", event.getText() + "%"));
                 data.addContainerFilter(or);
             }
         });
@@ -141,7 +161,6 @@ public class AnomaliaView extends VerticalLayout implements View {
                 });
         return filter;
     }
-
     private HorizontalLayout buildBarButtons(final JPAContainer datasource) {
         Button bIncluir = new Button("Incluir");
         bIncluir.addClickListener(new Button.ClickListener() {
