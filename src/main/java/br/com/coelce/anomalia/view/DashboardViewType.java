@@ -13,18 +13,20 @@ import com.vaadin.server.Resource;
  */
 public enum DashboardViewType {
     
-//    DASHBOARD("dashboard", AnomaliaView.class, FontAwesome.HOME, true),
+//    DASHBOARD("dashboard", FontAwesome.HOME, true),
     ANOMALIAS(AnomaliaView.VIEW_NAME, FontAwesome.EXCLAMATION_CIRCLE, false),
-//    CLASANOMALIAS(TipoAnomaliaView.VIEW_NAME, FontAwesome.ALIGN_CENTER, false),
-//    ACOES(AcaoView.VIEW_NAME, AcaoView.class, FontAwesome.CHECK, false),
-//    PROCESSOS(ProcessoView.VIEW_NAME, ProcessoView.class, FontAwesome.SITEMAP, false),
-//    ROTINAS(RotinaView.VIEW_NAME, RotinaView.class, FontAwesome.CLIPBOARD, false),
-    DIRETORIA(DiretoriaView.VIEW_NAME, FontAwesome.GROUP, false),
-    AREAS(AreaView.VIEW_NAME, FontAwesome.BUILDING, false),
-    OPERADORES(OperadorView.VIEW_NAME, FontAwesome.MALE, false),
-    LOCAIS(LocaisView.VIEW_NAME, FontAwesome.MAP_MARKER, false),
-    REPORTS("relatorios", FontAwesome.FILE_TEXT_O, true);
-//    SCHEDULE("agenda", AreaView.class, FontAwesome.CALENDAR_O, false);
+    CLASANOMALIAS(TipoAnomaliaView.VIEW_NAME, FontAwesome.ALIGN_CENTER, true),
+    ACOES(AcaoView.VIEW_NAME, FontAwesome.CHECK, false),
+    PROCESSOS(ProcessoView.VIEW_NAME, FontAwesome.SITEMAP, false),
+    ROTINAS(RotinaView.VIEW_NAME, FontAwesome.CLIPBOARD, false),
+    DIRETORIA(DiretoriaView.VIEW_NAME, FontAwesome.GROUP, true),
+    AREAS(AreaView.VIEW_NAME, FontAwesome.BUILDING, true),
+    OPERADORES(OperadorView.VIEW_NAME, FontAwesome.MALE, true),
+    USUARIOS(UsuariosView.VIEW_NAME, FontAwesome.USER, true),
+    PERMISSOES(PermissoesView.VIEW_NAME, FontAwesome.LOCK, true),
+    LOCAIS(LocaisView.VIEW_NAME, FontAwesome.MAP_MARKER, true),
+    REPORTS("relatorios", FontAwesome.FILE_TEXT_O, false);
+//    SCHEDULE("agenda", FontAwesome.CALENDAR_O, false);
 
     private final String viewName;
     private final Resource icon;
@@ -41,7 +43,7 @@ public enum DashboardViewType {
     public boolean isStateful() {
         return stateful;
     }
-
+    
     public String getViewName() {
         return viewName;
     }

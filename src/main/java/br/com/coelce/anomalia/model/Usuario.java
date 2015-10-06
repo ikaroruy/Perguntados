@@ -30,7 +30,7 @@ public class Usuario extends Identified {
     private String confirmPassword;
     @ManyToMany
     private List<Permissoes> permissoes;
-
+    
     public String getLogin() {
         return login;
     }
@@ -54,11 +54,11 @@ public class Usuario extends Identified {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = hashPassword(confirmPassword);
     }
-
+    
     public List<Permissoes> getPermissoes() {
         return permissoes;
     }
-
+    
     public void setPermissoes(List<Permissoes> permissoes) {
         this.permissoes = permissoes;
     }

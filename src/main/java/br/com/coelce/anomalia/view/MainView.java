@@ -5,7 +5,6 @@
  */
 package br.com.coelce.anomalia.view;
 
-import br.com.coelce.anomalia.model.Usuario;
 import com.vaadin.server.Page;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.CssLayout;
@@ -29,7 +28,6 @@ public class MainView extends HorizontalLayout {
         setSizeFull();
         addStyleName("mainview");
         addComponent(dashboardMenu);
-
         content = new CssLayout();
         content.addStyleName("view-content");
         content.setSizeFull();

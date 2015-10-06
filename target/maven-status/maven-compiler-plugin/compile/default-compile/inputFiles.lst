@@ -1,5 +1,7 @@
+/home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/view/form/PermissoesWindow.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/view/RotinaView.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/MyUI.java
+/home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/persistence/PermissaoContainer.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/view/MainView.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/model/Area.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/persistence/TipoAnomaliaContainer.java
@@ -8,10 +10,12 @@
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/view/ErrorView.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/view/form/TipoAnomaliaWindow.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/persistence/AreaContainer.java
-/home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/model/TipoPermissao.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/view/AcaoView.java
+/home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/view/UsuariosView.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/view/form/RotinaWindow.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/view/ProcessoView.java
+/home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/persistence/UsuarioContainer.java
+/home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/view/PermissoesView.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/view/form/DiretoriaWindow.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/consts/Consts.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/model/TipoAnomalia.java
@@ -51,6 +55,7 @@
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/security/UserInfo.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/model/Operador.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/persistence/OperadorContainer.java
+/home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/view/form/UsuarioWindow.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/persistence/AnomaliaContainer.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/service/NavigationService.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/persistence/LocaisContainer.java

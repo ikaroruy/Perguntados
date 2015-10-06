@@ -24,6 +24,7 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,7 +43,7 @@ public class AreaWindow extends Window implements Button.ClickListener {
     private TextArea descricaoField;
     @PropertyId("diretoria")
     private ComboBox diretoriaCombo;
-    private FormLayout layout;
+    private VerticalLayout layout;
     private BeanFieldGroup<Area> binder;
     private HorizontalLayout buttons;
     private Button bSalvar;
@@ -58,9 +59,12 @@ public class AreaWindow extends Window implements Button.ClickListener {
         Page.getCurrent().setTitle("Áreas | Gestão da Rotina");
         addStyleName("profile-window");
         setModal(true);
-        setWindowMode(WindowMode.MAXIMIZED);
-        layout = new FormLayout();
+        setSizeFull();
+        
+        setResizable(false);
+        layout = new VerticalLayout();
         layout.setSizeUndefined();
+        layout.setMargin(true);
         layout.setSpacing(true);
 
         bSalvar = new Button("Salvar");

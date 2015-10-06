@@ -50,7 +50,7 @@ public class LoginView extends VerticalLayout implements View, ClickListener {
     @Inject
     private UsuarioDAO usuarioDAO;
     private Component loginForm;
-
+   
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
 

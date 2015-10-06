@@ -67,12 +67,11 @@ public class DashboardMenu extends CustomComponent {
         menuContent.addStyleName("no-horizontal-drag-hints");
         menuContent.setWidth(null);
         menuContent.setHeight("100%");
-
         menuContent.addComponent(buildTitle());
         menuContent.addComponent(buildUserMenu());
         menuContent.addComponent(buildToggleButton());
         menuContent.addComponent(buildMenuItems());
-
+        
         return menuContent;
     }
 
@@ -136,16 +135,15 @@ public class DashboardMenu extends CustomComponent {
         valoMenuToggleButton.addStyleName(ValoTheme.BUTTON_SMALL);
         return valoMenuToggleButton;
     }
-
+ 
     private Component buildMenuItems() {
         CssLayout menuItemsLayout = new CssLayout();
         menuItemsLayout.addStyleName("valo-menuitems");
-
         for (final DashboardViewType view : DashboardViewType.values()) {
             Component menuItemComponent = new ValoMenuItemButton(view);
 
-            if (view == DashboardViewType.REPORTS) {
-                // Add drop target to reports button
+                if (view == DashboardViewType.REPORTS) {
+                    // Add drop target to reports button
 //                DragAndDropWrapper reports = new DragAndDropWrapper(
 //                        menuItemComponent);
 //                reports.setSizeUndefined();
@@ -171,7 +169,7 @@ public class DashboardMenu extends CustomComponent {
 //
 //                });
 //                menuItemComponent = reports;
-            }
+                }
 
 //                if (view == DashboardViewType.DASHBOARD) {
 //                    notificationsBadge = new Label();
@@ -179,15 +177,16 @@ public class DashboardMenu extends CustomComponent {
 //                    menuItemComponent = buildBadgeWrapper(menuItemComponent,
 //                            notificationsBadge);
 //                }
-            if (view == DashboardViewType.REPORTS) {
-                reportsBadge = new Label();
-                reportsBadge.setId(REPORTS_BADGE_ID);
-                menuItemComponent = buildBadgeWrapper(menuItemComponent,
-                        reportsBadge);
-            }
+                if (view == DashboardViewType.REPORTS) {
+                    reportsBadge = new Label();
+                    reportsBadge.setId(REPORTS_BADGE_ID);
+                    menuItemComponent = buildBadgeWrapper(menuItemComponent,
+                            reportsBadge);
+                }
 
-            menuItemsLayout.addComponent(menuItemComponent);
-        }
+                menuItemsLayout.addComponent(menuItemComponent);
+            }
+        
         return menuItemsLayout;
 
     }

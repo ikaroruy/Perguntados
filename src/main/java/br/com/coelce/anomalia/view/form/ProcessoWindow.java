@@ -20,6 +20,7 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,7 +37,7 @@ public class ProcessoWindow extends Window implements Button.ClickListener {
     private TextField nomeField;
     @PropertyId("descricao")
     private TextArea descricaoField;
-    private FormLayout layout;
+    private VerticalLayout layout;
     private BeanFieldGroup<Processo> binder;
     private HorizontalLayout buttons;
     private Button bSalvar;
@@ -50,9 +51,12 @@ public class ProcessoWindow extends Window implements Button.ClickListener {
         Page.getCurrent().setTitle("Processos | Gestão da Rotina");
         addStyleName("profile-window");
         setModal(true);
-        setWindowMode(WindowMode.MAXIMIZED);
-        layout = new FormLayout();
+        setSizeFull();
+        
+        setResizable(false);
+        layout = new VerticalLayout();
         layout.setSizeUndefined();
+        layout.setMargin(true);
         layout.setSpacing(true);
 
         bSalvar = new Button("Salvar");
