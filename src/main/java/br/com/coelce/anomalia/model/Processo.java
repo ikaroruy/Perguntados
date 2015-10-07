@@ -17,11 +17,7 @@ import javax.persistence.ManyToOne;
  * @author dunkelheit
  */
 @Entity
-public class Processo implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Processo extends Identified {
 
     private String nome;
 
@@ -30,14 +26,6 @@ public class Processo implements Serializable {
     
     @ManyToOne
     private Rotina rotina;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;

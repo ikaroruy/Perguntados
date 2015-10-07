@@ -97,8 +97,8 @@ public class DiretoriaView extends VerticalLayout implements View {
 
         tableReturn.setContainerDataSource(container);
 //        container.addNestedContainerProperty("diretoria.id");
-        tableReturn.setVisibleColumns(new Object[]{"id", "nome", "descricao"});
-        tableReturn.setColumnHeaders(new String[]{"Código", "Diretoria", "Descrição"});
+        tableReturn.setVisibleColumns(new Object[]{"nome", "descricao"});
+        tableReturn.setColumnHeaders(new String[]{"Diretoria", "Descrição"});
         tableReturn.addValueChangeListener(new Property.ValueChangeListener() {
 
             @Override

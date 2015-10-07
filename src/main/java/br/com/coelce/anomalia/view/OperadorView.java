@@ -101,8 +101,8 @@ public class OperadorView extends VerticalLayout implements View {
 
         tableReturn.setContainerDataSource(container);
 
-        tableReturn.setVisibleColumns(new Object[]{"id", "nome"});
-        tableReturn.setColumnHeaders(new String[]{"Código", "Nome"});
+        tableReturn.setVisibleColumns(new Object[]{"nome"});
+        tableReturn.setColumnHeaders(new String[]{"Nome"});
         tableReturn.addValueChangeListener(new Property.ValueChangeListener() {
 
             @Override

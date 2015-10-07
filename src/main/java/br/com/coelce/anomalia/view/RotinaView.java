@@ -97,8 +97,8 @@ public class RotinaView extends VerticalLayout implements View {
         tableReturn.setContainerDataSource(container);
         container.addNestedContainerProperty("processo.nome");
         container.addNestedContainerProperty("operador.nome");
-        tableReturn.setVisibleColumns(new Object[]{"id", "nome", "descricao","processo.nome" ,"operador.nome"});
-        tableReturn.setColumnHeaders(new String[]{"Código", "Nome", "Descrição","Processo", "Operador"});
+        tableReturn.setVisibleColumns(new Object[]{"nome", "descricao","processo.nome" ,"operador.nome"});
+        tableReturn.setColumnHeaders(new String[]{"Nome", "Descrição","Processo", "Operador"});
         tableReturn.addValueChangeListener(new Property.ValueChangeListener() {
 
             @Override

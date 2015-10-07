@@ -5,11 +5,7 @@
  */
 package br.com.coelce.anomalia.model;
 
-import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 /**
@@ -17,26 +13,14 @@ import javax.persistence.ManyToOne;
  * @author dunkelheit
  */
 @Entity
-public class Area implements Serializable {
+public class Area extends Identified {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    
     private String nome;
     
     private String descricao;
     
     @ManyToOne
     private Diretoria diretoria;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;

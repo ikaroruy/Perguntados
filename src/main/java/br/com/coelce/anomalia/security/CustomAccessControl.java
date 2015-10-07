@@ -32,13 +32,14 @@ public class CustomAccessControl extends AccessControl implements Serializable {
         if (isUserSignedIn()) {
             List<Permissoes> permissoes = userInfo.getUsuario().getPermissoes();
             for (Permissoes permissoe : permissoes) {
-                if (permissoe.getTipoPermissao().equals(string)) {
+                if (permissoe.getTipoPermissao().toString().equals(string)) {
                     return true;
                 }
             }
         }
         return false;
     }
+
 
     @Override
     public String getPrincipalName() {

@@ -6,7 +6,11 @@
 package br.com.coelce.anomalia.view;
 
 import br.com.coelce.anomalia.event.NavigationEvent;
+import br.com.coelce.anomalia.model.Permissoes;
+import br.com.coelce.anomalia.model.TipoPermissao;
+import static br.com.coelce.anomalia.model.TipoPermissao.ADMIN;
 import br.com.coelce.anomalia.model.Usuario;
+import br.com.coelce.anomalia.security.CustomAccessControl;
 import br.com.coelce.anomalia.security.UserInfo;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
@@ -46,6 +50,8 @@ public class DashboardMenu extends CustomComponent {
     private UserInfo userInfo;
     @Inject
     private javax.enterprise.event.Event<NavigationEvent> navigationEvent;
+    @Inject 
+    private CustomAccessControl customAccessControl;
 
     public DashboardMenu() {
         setPrimaryStyleName("valo-menu");
@@ -87,7 +93,7 @@ public class DashboardMenu extends CustomComponent {
     private Usuario getCurrentUser() {
         return userInfo.getUsuario();
     }
-
+    
     private Component buildUserMenu() {
         final MenuBar settings = new MenuBar();
         settings.addStyleName("user-menu");
@@ -141,8 +147,8 @@ public class DashboardMenu extends CustomComponent {
         menuItemsLayout.addStyleName("valo-menuitems");
         for (final DashboardViewType view : DashboardViewType.values()) {
             Component menuItemComponent = new ValoMenuItemButton(view);
-
-                if (view == DashboardViewType.REPORTS) {
+            
+            if (view == DashboardViewType.REPORTS) {
                     // Add drop target to reports button
 //                DragAndDropWrapper reports = new DragAndDropWrapper(
 //                        menuItemComponent);
@@ -186,6 +192,7 @@ public class DashboardMenu extends CustomComponent {
 
                 menuItemsLayout.addComponent(menuItemComponent);
             }
+            
         
         return menuItemsLayout;
 

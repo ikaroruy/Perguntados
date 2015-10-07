@@ -97,8 +97,8 @@ public class AcaoView extends VerticalLayout implements View {
         tableReturn.setColumnReorderingAllowed(true);
         tableReturn.setContainerDataSource(container);
         container.addNestedContainerProperty("anomalia.id");
-        tableReturn.setVisibleColumns(new Object[]{"id", "nome", "descricao", "anomalia.id", "dataInicio", "dataTermino"});
-        tableReturn.setColumnHeaders(new String[]{"Código", "Nome", "Descrição","Código da anomalia" , "Data de Início", "Data de Término"});
+        tableReturn.setVisibleColumns(new Object[]{"nome", "descricao", "anomalia.id", "dataInicio", "dataTermino"});
+        tableReturn.setColumnHeaders(new String[]{"Nome", "Descrição","Código da anomalia" , "Data de Início", "Data de Término"});
         tableReturn.addValueChangeListener(new Property.ValueChangeListener() {
 
             @Override

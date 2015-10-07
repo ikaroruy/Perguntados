@@ -104,9 +104,9 @@ public class AnomaliaView extends VerticalLayout implements View {
         container.addNestedContainerProperty("local.nome");
         tableReturn.setContainerDataSource(container);
 //        container.addNestedContainerProperty("acao.sigla");
-        tableReturn.setVisibleColumns(new Object[]{"id", "area.nome","operador.nome",  
+        tableReturn.setVisibleColumns(new Object[]{"area.nome","operador.nome",  
             "dataOcorrencia", "local.nome", "texto1", "texto2", "texto3", "texto4"});
-        tableReturn.setColumnHeaders(new String[]{"Código", "Área","Operador", 
+        tableReturn.setColumnHeaders(new String[]{"Área","Operador", 
             "Data da anomalia", "Local" , "O que aconteceu de diferente no serviço?",
             "O que pode ter gerado o problema?", "Foi feito alguma coisa para corrigir o problema?",
             "Se não, o que você sugere que seja feito?"

@@ -20,7 +20,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class Identified implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "uuid-string") // Universally Unique Identifier (1) 
+    @GeneratedValue(generator = "system-uuid") // Universally Unique Identifier (1) 
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(length = 32)
     private String id;

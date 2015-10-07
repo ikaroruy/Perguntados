@@ -10,6 +10,7 @@
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/view/ErrorView.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/view/form/TipoAnomaliaWindow.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/persistence/AreaContainer.java
+/home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/model/TipoPermissao.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/view/AcaoView.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/view/UsuariosView.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/view/form/RotinaWindow.java

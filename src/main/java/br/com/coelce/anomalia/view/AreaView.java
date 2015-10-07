@@ -98,8 +98,8 @@ public class AreaView extends VerticalLayout implements View {
         container.addNestedContainerProperty("diretoria.nome");
        
         
-        tableReturn.setVisibleColumns(new Object[]{"id", "nome","descricao", "diretoria.nome"});
-        tableReturn.setColumnHeaders(new String[]{"Código", "Nome","Descrição", "Diretoria"});
+        tableReturn.setVisibleColumns(new Object[]{"nome","descricao", "diretoria.nome"});
+        tableReturn.setColumnHeaders(new String[]{"Nome","Descrição", "Diretoria"});
         tableReturn.addValueChangeListener(new Property.ValueChangeListener() {
 
             @Override

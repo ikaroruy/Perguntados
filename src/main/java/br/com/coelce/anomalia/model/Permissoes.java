@@ -5,12 +5,8 @@
  */
 package br.com.coelce.anomalia.model;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 /**
@@ -18,29 +14,26 @@ import javax.persistence.ManyToMany;
  * @author dunkelheit
  */
 @Entity
-public class Permissoes implements Serializable {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    
-    private String tipoPermissao;
+public class Permissoes extends Identified {
 
-    public String getTipoPermissao() {
+    @ManyToMany(mappedBy = "permissoes")
+    private List<Usuario> usuarios;
+    private TipoPermissao tipoPermissao;
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+
+    public TipoPermissao getTipoPermissao() {
         return tipoPermissao;
     }
 
-    public void setTipoPermissao(String tipoPermissao) {
+    public void setTipoPermissao(TipoPermissao tipoPermissao) {
         this.tipoPermissao = tipoPermissao;
-    }
-    
-    
-     public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
 }

@@ -55,6 +55,7 @@ br/com/coelce/anomalia/view/DiretoriaView$3.class
 br/com/coelce/anomalia/view/AreaView$4.class
 br/com/coelce/anomalia/view/form/DashboardWindow$DashboardEditListener.class
 br/com/coelce/anomalia/business/ImageUploader.class
+br/com/coelce/anomalia/model/TipoPermissao.class
 br/com/coelce/anomalia/view/form/RotinaWindow.class
 br/com/coelce/anomalia/util/Base64Encoder.class
 br/com/coelce/anomalia/model/Operador.class

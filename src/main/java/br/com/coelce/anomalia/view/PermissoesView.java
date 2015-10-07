@@ -6,9 +6,7 @@
 package br.com.coelce.anomalia.view;
 
 import br.com.coelce.anomalia.persistence.PermissaoContainer;
-import br.com.coelce.anomalia.persistence.UsuarioContainer;
 import br.com.coelce.anomalia.view.form.PermissoesWindow;
-import br.com.coelce.anomalia.view.form.UsuarioWindow;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.cdi.CDIView;
 import com.vaadin.data.Container;
@@ -97,8 +95,8 @@ public class PermissoesView extends VerticalLayout implements View {
         tableReturn.setColumnCollapsingAllowed(true);
         tableReturn.setColumnReorderingAllowed(true);
         tableReturn.setContainerDataSource(container);
-        tableReturn.setVisibleColumns(new Object[]{"id", "tipoPermissao"});
-        tableReturn.setColumnHeaders(new String[]{"Código", "Tipo de Permissão",});
+        tableReturn.setVisibleColumns(new Object[]{"tipoPermissao"});
+        tableReturn.setColumnHeaders(new String[]{"Tipo de Permissão",});
         tableReturn.addValueChangeListener(new Property.ValueChangeListener() {
 
             @Override

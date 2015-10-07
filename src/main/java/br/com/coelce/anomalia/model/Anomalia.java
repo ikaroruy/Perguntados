@@ -5,13 +5,8 @@
  */
 package br.com.coelce.anomalia.model;
 
-import java.io.Serializable;
-import java.sql.Time;
 import java.util.Date;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,11 +16,7 @@ import javax.persistence.TemporalType;
  * @author dunkelheit
  */
 @Entity
-public class Anomalia implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+public class Anomalia extends Identified {
 
     @Temporal(TemporalType.DATE)
     private Date dataOcorrencia;
@@ -64,16 +55,6 @@ public class Anomalia implements Serializable {
     
     private String texto4;
     
-
-   
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = "RAN" + id;
-    }
-
     public Date getDataOcorrencia() {
         return dataOcorrencia;
     }

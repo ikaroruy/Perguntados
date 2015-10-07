@@ -97,8 +97,8 @@ public class TipoAnomaliaView extends VerticalLayout implements View {
 
         tableReturn.setContainerDataSource(container);
 //        container.addNestedContainerProperty("anomalia.id");
-        tableReturn.setVisibleColumns(new Object[]{"id", "tipo", "descricao"});
-        tableReturn.setColumnHeaders(new String[]{"Código", "Nome", "Descrição"});
+        tableReturn.setVisibleColumns(new Object[]{"tipo", "descricao"});
+        tableReturn.setColumnHeaders(new String[]{"Nome", "Descrição"});
         tableReturn.addValueChangeListener(new Property.ValueChangeListener() {
 
             @Override

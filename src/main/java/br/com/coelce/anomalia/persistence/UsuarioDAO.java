@@ -5,8 +5,11 @@
  */
 package br.com.coelce.anomalia.persistence;
 
+import br.com.coelce.anomalia.model.Permissoes;
+import br.com.coelce.anomalia.model.TipoPermissao;
 import br.com.coelce.anomalia.model.Usuario;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.Dependent;
@@ -47,7 +50,14 @@ public class UsuarioDAO extends AbstractDAO<Usuario> implements Serializable {
                 u.setLogin("admin");
                 u.setSenha("123456");
                 try {
-                    save(u);
+//                    save(u);
+                    Usuario save = save(u);
+                     save.setPermissoes(new ArrayList<Permissoes>());
+                     Permissoes permissoes = new Permissoes();
+                     permissoes.setTipoPermissao(TipoPermissao.ADMIN);
+                     permissoes.setUsuarios(new ArrayList<Usuario>());
+                     permissoes.getUsuarios().add(save);
+                     em.persist(permissoes);
                 } catch (Exception ex) {
                     LOGGER.log(Level.SEVERE, nre.getMessage(), nre);
                 }

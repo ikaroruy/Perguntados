@@ -17,11 +17,7 @@ import javax.persistence.ManyToOne;
  * @author dunkelheit
  */
 @Entity
-public class Rotina implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Rotina extends Identified {
 
     private String nome;
 
@@ -34,14 +30,6 @@ public class Rotina implements Serializable {
 
     @ManyToOne
     private Processo processo;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;

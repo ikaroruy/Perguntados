@@ -23,7 +23,7 @@ public enum DashboardViewType {
     AREAS(AreaView.VIEW_NAME, FontAwesome.BUILDING, true),
     OPERADORES(OperadorView.VIEW_NAME, FontAwesome.MALE, true),
     USUARIOS(UsuariosView.VIEW_NAME, FontAwesome.USER, true),
-    PERMISSOES(PermissoesView.VIEW_NAME, FontAwesome.LOCK, true),
+//    PERMISSOES(PermissoesView.VIEW_NAME, FontAwesome.LOCK, true),
     LOCAIS(LocaisView.VIEW_NAME, FontAwesome.MAP_MARKER, true),
     REPORTS("relatorios", FontAwesome.FILE_TEXT_O, false);
 //    SCHEDULE("agenda", FontAwesome.CALENDAR_O, false);

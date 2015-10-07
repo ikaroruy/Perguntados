@@ -19,11 +19,7 @@ import javax.persistence.Temporal;
  * @author dunkelheit
  */
 @Entity
-public class Acao implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Acao extends Identified {
 
     private String nome;
 
@@ -37,14 +33,6 @@ public class Acao implements Serializable {
     
     @ManyToOne
     private Anomalia anomalia;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;

@@ -98,8 +98,8 @@ public class UsuariosView extends VerticalLayout implements View {
         tableReturn.setColumnReorderingAllowed(true);
 
         tableReturn.setContainerDataSource(container);
-        tableReturn.setVisibleColumns(new Object[]{"id", "login", "permissoes"});
-        tableReturn.setColumnHeaders(new String[]{"Código", "Login", "Permissoes"});
+        tableReturn.setVisibleColumns(new Object[]{"login", "permissoes"});
+        tableReturn.setColumnHeaders(new String[]{"Login", "Permissoes"});
         tableReturn.addValueChangeListener(new Property.ValueChangeListener() {
 
             @Override

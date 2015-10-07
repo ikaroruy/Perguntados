@@ -96,8 +96,8 @@ public class LocaisView extends VerticalLayout implements View {
         tableReturn.setColumnReorderingAllowed(true);
 
         tableReturn.setContainerDataSource(container);
-        tableReturn.setVisibleColumns(new Object[]{"id", "nome", "descricao"});
-        tableReturn.setColumnHeaders(new String[]{"Código", "Local", "Descrição"});
+        tableReturn.setVisibleColumns(new Object[]{"nome", "descricao"});
+        tableReturn.setColumnHeaders(new String[]{"Local", "Descrição"});
         tableReturn.addValueChangeListener(new Property.ValueChangeListener() {
 
             @Override
