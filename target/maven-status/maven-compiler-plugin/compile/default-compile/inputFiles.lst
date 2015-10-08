@@ -46,6 +46,7 @@
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/view/form/ProcessoWindow.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/event/NavigationEvent.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/view/TipoAnomaliaView.java
+/home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/model/Permissao.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/view/DashboardViewType.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/view/OperadorView.java
 /home/dunkelheit/NetBeansProjects/anomalia/src/main/java/br/com/coelce/anomalia/model/Rotina.java

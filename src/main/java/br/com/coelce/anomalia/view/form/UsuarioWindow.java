@@ -5,27 +5,19 @@
  */
 package br.com.coelce.anomalia.view.form;
 
-import br.com.coelce.anomalia.model.Diretoria;
-import br.com.coelce.anomalia.model.Permissoes;
+import br.com.coelce.anomalia.model.TipoPermissao;
 import br.com.coelce.anomalia.model.Usuario;
-import br.com.coelce.anomalia.persistence.DiretoriaContainer;
-import br.com.coelce.anomalia.persistence.PermissaoContainer;
 import br.com.coelce.anomalia.persistence.UsuarioContainer;
-import com.vaadin.addon.jpacontainer.fieldfactory.SingleSelectConverter;
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.server.Page;
-import com.vaadin.server.Sizeable;
-import com.vaadin.shared.ui.window.WindowMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
-import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.PasswordField;
-import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -41,13 +33,13 @@ import javax.inject.Inject;
  */
 public class UsuarioWindow extends Window implements Button.ClickListener {
 
-    @PropertyId("nome")
+    @PropertyId("login")
     private TextField nomeField;
     @PropertyId("senha")
     private PasswordField passwordField;
     @PropertyId("confirmPassword")
     private PasswordField conPasswordField;
-    @PropertyId("permissoes")
+    @PropertyId("tipoPermissao")
     private ComboBox permissaoCombo;
     private VerticalLayout layout;
     private BeanFieldGroup<Usuario> binder;
@@ -57,8 +49,8 @@ public class UsuarioWindow extends Window implements Button.ClickListener {
     private Button bExcluir;
     @Inject
     private UsuarioContainer container;
-    @Inject 
-    PermissaoContainer permissaoContainer;
+//    @Inject 
+//    PermissaoContainer permissaoContainer;
 
     @PostConstruct
     public void init() {
@@ -104,12 +96,14 @@ public class UsuarioWindow extends Window implements Button.ClickListener {
         passwordField.setNullRepresentation("");
         layout.addComponent(conPasswordField);
         
-        permissaoCombo = new ComboBox("Permissão", permissaoContainer);
+        permissaoCombo = new ComboBox("Permissão");
 //        area.setRequired(true);
 //        area.setRequiredError("campo obrigatório");
-        permissaoCombo.setItemCaptionPropertyId("tipoPermissao");
+//        permissaoCombo.setItemCaptionPropertyId("tipoDePermissao");
+        permissaoCombo.addItem(TipoPermissao.ADMIN);
+        permissaoCombo.addItem(TipoPermissao.USUARIO);
         permissaoCombo.setNullSelectionAllowed(false);
-        permissaoCombo.setConverter(new SingleSelectConverter<Permissoes>(permissaoCombo));
+//        permissaoCombo.setConverter(new SingleSelectConverter<Permissao>(permissaoCombo));
         layout.addComponent(permissaoCombo);
         
        

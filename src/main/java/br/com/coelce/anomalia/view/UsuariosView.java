@@ -96,10 +96,10 @@ public class UsuariosView extends VerticalLayout implements View {
         tableReturn.setSelectable(true);
         tableReturn.setColumnCollapsingAllowed(true);
         tableReturn.setColumnReorderingAllowed(true);
-
         tableReturn.setContainerDataSource(container);
-        tableReturn.setVisibleColumns(new Object[]{"login", "permissoes"});
-        tableReturn.setColumnHeaders(new String[]{"Login", "Permissoes"});
+//        container.addNestedContainerProperty("permiss.tipoDePermissao");
+        tableReturn.setVisibleColumns(new Object[]{"login", "tipoPermissao"});
+        tableReturn.setColumnHeaders(new String[]{"Login", "Permissão"});
         tableReturn.addValueChangeListener(new Property.ValueChangeListener() {
 
             @Override

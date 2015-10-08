@@ -52,6 +52,7 @@ public class NavigationService {
     public void onNavigationEvent(@Observes NavigationEvent event) {
         try {
             if (accessControl.isUserSignedIn() && ui.getContent() != mainView) {
+                mainView.rebuildMenu();
                 ui.setContent((Component) mainView);
                 Navigator navigator = new Navigator(ui, mainView.getContent());
                 navigator.addProvider(viewProvider);

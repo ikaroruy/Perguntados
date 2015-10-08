@@ -6,11 +6,7 @@
 package br.com.coelce.anomalia.view;
 
 import br.com.coelce.anomalia.event.NavigationEvent;
-import br.com.coelce.anomalia.model.Permissoes;
-import br.com.coelce.anomalia.model.TipoPermissao;
-import static br.com.coelce.anomalia.model.TipoPermissao.ADMIN;
 import br.com.coelce.anomalia.model.Usuario;
-import br.com.coelce.anomalia.security.CustomAccessControl;
 import br.com.coelce.anomalia.security.UserInfo;
 import com.vaadin.cdi.access.AccessControl;
 import com.vaadin.server.FontAwesome;
@@ -47,6 +43,7 @@ public class DashboardMenu extends CustomComponent {
     private Label notificationsBadge;
     private Label reportsBadge;
     private MenuItem settingsItem;
+    private  CssLayout menuItemsLayout;
     @Inject
     private UserInfo userInfo;
     @Inject
@@ -77,6 +74,7 @@ public class DashboardMenu extends CustomComponent {
         menuContent.addComponent(buildTitle());
         menuContent.addComponent(buildUserMenu());
         menuContent.addComponent(buildToggleButton());
+        
         menuContent.addComponent(buildMenuItems());
 
         return menuContent;
@@ -102,12 +100,12 @@ public class DashboardMenu extends CustomComponent {
         settingsItem = settings.addItem("", new ThemeResource(
                 "img/profile-pic-300px.jpg"), null);
 //      updateUserName(null);
-        settingsItem.addItem("Editar perfil", new Command() {
-            @Override
-            public void menuSelected(final MenuItem selectedItem) {
-//                ProfilePreferencesWindow.open(user, false);
-            }
-        });
+//        settingsItem.addItem("Editar perfil", new Command() {
+//            @Override
+//            public void menuSelected(final MenuItem selectedItem) {
+////                ProfilePreferencesWindow.open(user, false);
+//            }
+//        });
         settingsItem.addItem("Preferências", new Command() {
             @Override
             public void menuSelected(final MenuItem selectedItem) {
@@ -143,13 +141,18 @@ public class DashboardMenu extends CustomComponent {
         return valoMenuToggleButton;
     }
 
-    private Component buildMenuItems() {
-        CssLayout menuItemsLayout = new CssLayout();
-        menuItemsLayout.addStyleName("valo-menuitems");
-        for (final DashboardViewType view : DashboardViewType.values()) {
+    public Component buildMenuItems() {
+        if(menuItemsLayout == null) {
+            menuItemsLayout = new CssLayout(); 
+            menuItemsLayout.addStyleName("valo-menuitems");
+        }
+        menuItemsLayout.removeAllComponents();
+        
+        if(accessControl.isUserSignedIn()) {
+             for (final DashboardViewType view : DashboardViewType.values()) {
             Component menuItemComponent = new ValoMenuItemButton(view);
 
-            if (accessControl.isUserInRole("ADMIN") || view.isStateful()) {
+            if (accessControl.isUserInRole("USUARIO") || view.isStateful()) {
                 menuItemsLayout.addComponent(menuItemComponent);
             }
 //            if (view == DashboardViewType.REPORTS) {
@@ -195,6 +198,9 @@ public class DashboardMenu extends CustomComponent {
 //            }
         }
 
+        }
+        
+       
         return menuItemsLayout;
 
     }

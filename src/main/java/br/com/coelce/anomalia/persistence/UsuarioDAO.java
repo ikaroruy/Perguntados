@@ -5,11 +5,9 @@
  */
 package br.com.coelce.anomalia.persistence;
 
-import br.com.coelce.anomalia.model.Permissoes;
 import br.com.coelce.anomalia.model.TipoPermissao;
 import br.com.coelce.anomalia.model.Usuario;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.Dependent;
@@ -49,15 +47,22 @@ public class UsuarioDAO extends AbstractDAO<Usuario> implements Serializable {
                 Usuario u = new Usuario();
                 u.setLogin("admin");
                 u.setSenha("123456");
+                u.setTipoPermissao(TipoPermissao.ADMIN);
                 try {
+                    
 //                    save(u);
                     Usuario save = save(u);
-                     save.setPermissoes(new ArrayList<Permissoes>());
-                     Permissoes permissoes = new Permissoes();
-                     permissoes.setTipoPermissao(TipoPermissao.ADMIN);
-                     permissoes.setUsuarios(new ArrayList<Usuario>());
-                     permissoes.getUsuarios().add(save);
-                     em.persist(permissoes);
+//                     save.setPermissoes(new ArrayList<Permissoes>());
+//                     Permissoes permissoes = new Permissoes();
+//                     permissoes.setTipoPermissao(TipoPermissao.ADMIN);
+//                     permissoes.setUsuarios(new ArrayList<Usuario>());
+//                     permissoes.getUsuarios().add(save);
+//                     em.persist(permissoes);
+//                    Permissao permissao = new Permissao();
+//                    permissao.setTipoDePermissao("ADMIN");
+//                    em.persist(permissao);
+//                    save.setPermiss(permissao);
+                    em.persist(save);
                 } catch (Exception ex) {
                     LOGGER.log(Level.SEVERE, nre.getMessage(), nre);
                 }

@@ -12,7 +12,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 /**
@@ -22,14 +26,32 @@ import javax.persistence.Transient;
 @Entity
 public class Usuario extends Identified {
 
-    @Column(unique = true)
+   
     private String login;
-    @Column
     private String senha;
-    @Transient
     private String confirmPassword;
-    @ManyToMany
-    private List<Permissoes> permissoes;
+//    @ManyToMany
+//    private List<Permissoes> permissoes;
+    
+//    private Permissao permiss;
+
+//    public Permissao getPermiss() {
+//        return permiss;
+//    }
+//
+//    public void setPermiss(Permissao permiss) {
+//        this.permiss = permiss;
+//    }
+    @Enumerated(EnumType.STRING)
+    private TipoPermissao tipoPermissao; 
+
+    public TipoPermissao getTipoPermissao() {
+        return tipoPermissao;
+    }
+
+    public void setTipoPermissao(TipoPermissao tipoPermissao) {
+        this.tipoPermissao = tipoPermissao;
+    }
     
     public String getLogin() {
         return login;
@@ -55,13 +77,13 @@ public class Usuario extends Identified {
         this.confirmPassword = hashPassword(confirmPassword);
     }
     
-    public List<Permissoes> getPermissoes() {
-        return permissoes;
-    }
-    
-    public void setPermissoes(List<Permissoes> permissoes) {
-        this.permissoes = permissoes;
-    }
+//    public List<Permissoes> getPermissoes() {
+//        return permissoes;
+//    }
+//    
+//    public void setPermissoes(List<Permissoes> permissoes) {
+//        this.permissoes = permissoes;
+//    }
 
     public String hashPassword(String rawPassword) {
         MessageDigest md;

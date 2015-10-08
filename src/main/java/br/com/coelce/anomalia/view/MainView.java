@@ -39,4 +39,8 @@ public class MainView extends HorizontalLayout {
         return content;
     }
 
+    public void rebuildMenu() {
+        dashboardMenu.buildMenuItems();
+    }
+
 }

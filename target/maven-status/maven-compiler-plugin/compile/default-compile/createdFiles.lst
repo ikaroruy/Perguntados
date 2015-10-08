@@ -9,13 +9,10 @@ br/com/coelce/anomalia/persistence/RotinaContainer.class
 br/com/coelce/anomalia/view/LoginView.class
 br/com/coelce/anomalia/view/form/DashboardWindow$1.class
 br/com/coelce/anomalia/model/Rotina.class
-br/com/coelce/anomalia/view/DashboardMenu$3.class
-br/com/coelce/anomalia/view/PermissoesView$3.class
 br/com/coelce/anomalia/view/AnomaliaView$5.class
 br/com/coelce/anomalia/view/AreaView$1.class
 br/com/coelce/anomalia/view/form/LocaisWindow.class
 br/com/coelce/anomalia/view/DiretoriaView$6.class
-br/com/coelce/anomalia/view/PermissoesView$6.class
 br/com/coelce/anomalia/view/MainView.class
 br/com/coelce/anomalia/view/DiretoriaView$1.class
 br/com/coelce/anomalia/view/AreaView$6.class
@@ -37,11 +34,9 @@ br/com/coelce/anomalia/view/OperadorView$5.class
 br/com/coelce/anomalia/view/UsuariosView$1.class
 br/com/coelce/anomalia/view/form/DashboardWindow.class
 br/com/coelce/anomalia/view/form/ProcessoWindow.class
-br/com/coelce/anomalia/view/PermissoesView$5.class
 br/com/coelce/anomalia/view/TipoAnomaliaView.class
 br/com/coelce/anomalia/view/TipoAnomaliaView$6.class
 br/com/coelce/anomalia/view/RotinaView$6.class
-br/com/coelce/anomalia/view/form/PermissoesWindow.class
 br/com/coelce/anomalia/view/form/TipoAnomaliaWindow.class
 br/com/coelce/anomalia/view/DashboardViewType.class
 br/com/coelce/anomalia/event/NavigationEvent.class
@@ -76,7 +71,6 @@ br/com/coelce/anomalia/view/AcaoView.class
 br/com/coelce/anomalia/view/TipoAnomaliaView$1.class
 br/com/coelce/anomalia/view/RotinaView$1.class
 br/com/coelce/anomalia/view/RotinaView$4.class
-br/com/coelce/anomalia/persistence/PermissaoContainer.class
 br/com/coelce/anomalia/view/AreaView$2.class
 br/com/coelce/anomalia/view/AcaoView$5.class
 br/com/coelce/anomalia/view/ErrorView$2.class
@@ -84,7 +78,6 @@ br/com/coelce/anomalia/model/Area.class
 br/com/coelce/anomalia/persistence/TipoAnomaliaContainer.class
 br/com/coelce/anomalia/persistence/AnomaliaContainer.class
 br/com/coelce/anomalia/view/TipoAnomaliaView$4.class
-br/com/coelce/anomalia/model/Permissoes.class
 br/com/coelce/anomalia/view/OperadorView$1.class
 br/com/coelce/anomalia/persistence/AcaoContainer.class
 br/com/coelce/anomalia/view/LocaisView.class
@@ -95,7 +88,6 @@ br/com/coelce/anomalia/view/AcaoView$2.class
 br/com/coelce/anomalia/view/LocaisView$3.class
 br/com/coelce/anomalia/security/CustomAccessControl.class
 br/com/coelce/anomalia/view/UsuariosView$5.class
-br/com/coelce/anomalia/view/PermissoesView$4.class
 br/com/coelce/anomalia/view/ProcessoView$5.class
 br/com/coelce/anomalia/view/DashboardMenu$1.class
 br/com/coelce/anomalia/view/UsuariosView.class
@@ -104,7 +96,6 @@ br/com/coelce/anomalia/view/DashboardMenu$ValoMenuItemButton.class
 br/com/coelce/anomalia/security/UserInfo.class
 br/com/coelce/anomalia/view/form/AcaoWindow.class
 br/com/coelce/anomalia/persistence/AbstractDAO.class
-br/com/coelce/anomalia/view/DashboardMenu$4.class
 br/com/coelce/anomalia/persistence/ProcessoContainer.class
 br/com/coelce/anomalia/view/form/AnomaliaWindow$MyNewItemHandler.class
 br/com/coelce/anomalia/view/OperadorView$2.class
@@ -113,11 +104,9 @@ br/com/coelce/anomalia/view/LocaisView$6.class
 br/com/coelce/anomalia/view/LocaisView$2.class
 br/com/coelce/anomalia/view/DashboardMenu.class
 br/com/coelce/anomalia/view/DiretoriaView$4.class
-br/com/coelce/anomalia/view/PermissoesView.class
 br/com/coelce/anomalia/view/AcaoView$3.class
 br/com/coelce/anomalia/view/UsuariosView$4.class
 br/com/coelce/anomalia/view/ProcessoView$2.class
-br/com/coelce/anomalia/view/PermissoesView$1.class
 br/com/coelce/anomalia/view/TipoAnomaliaView$2.class
 br/com/coelce/anomalia/persistence/LocaisContainer.class
 br/com/coelce/anomalia/model/Locais.class
@@ -138,5 +127,4 @@ br/com/coelce/anomalia/view/ErrorView$1.class
 br/com/coelce/anomalia/model/Diretoria.class
 br/com/coelce/anomalia/view/UsuariosView$3.class
 br/com/coelce/anomalia/view/TipoAnomaliaView$3.class
-br/com/coelce/anomalia/view/PermissoesView$2.class
 br/com/coelce/anomalia/model/TipoAnomalia.class
