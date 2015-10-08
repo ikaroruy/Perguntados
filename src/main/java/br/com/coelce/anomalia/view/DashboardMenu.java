@@ -12,6 +12,7 @@ import static br.com.coelce.anomalia.model.TipoPermissao.ADMIN;
 import br.com.coelce.anomalia.model.Usuario;
 import br.com.coelce.anomalia.security.CustomAccessControl;
 import br.com.coelce.anomalia.security.UserInfo;
+import com.vaadin.cdi.access.AccessControl;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.server.ThemeResource;
@@ -50,8 +51,8 @@ public class DashboardMenu extends CustomComponent {
     private UserInfo userInfo;
     @Inject
     private javax.enterprise.event.Event<NavigationEvent> navigationEvent;
-    @Inject 
-    private CustomAccessControl customAccessControl;
+    @Inject
+    private AccessControl accessControl;
 
     public DashboardMenu() {
         setPrimaryStyleName("valo-menu");
@@ -77,7 +78,7 @@ public class DashboardMenu extends CustomComponent {
         menuContent.addComponent(buildUserMenu());
         menuContent.addComponent(buildToggleButton());
         menuContent.addComponent(buildMenuItems());
-        
+
         return menuContent;
     }
 
@@ -93,7 +94,7 @@ public class DashboardMenu extends CustomComponent {
     private Usuario getCurrentUser() {
         return userInfo.getUsuario();
     }
-    
+
     private Component buildUserMenu() {
         final MenuBar settings = new MenuBar();
         settings.addStyleName("user-menu");
@@ -141,15 +142,18 @@ public class DashboardMenu extends CustomComponent {
         valoMenuToggleButton.addStyleName(ValoTheme.BUTTON_SMALL);
         return valoMenuToggleButton;
     }
- 
+
     private Component buildMenuItems() {
         CssLayout menuItemsLayout = new CssLayout();
         menuItemsLayout.addStyleName("valo-menuitems");
         for (final DashboardViewType view : DashboardViewType.values()) {
             Component menuItemComponent = new ValoMenuItemButton(view);
-            
-            if (view == DashboardViewType.REPORTS) {
-                    // Add drop target to reports button
+
+            if (accessControl.isUserInRole("ADMIN") || view.isStateful()) {
+                menuItemsLayout.addComponent(menuItemComponent);
+            }
+//            if (view == DashboardViewType.REPORTS) {
+            // Add drop target to reports button
 //                DragAndDropWrapper reports = new DragAndDropWrapper(
 //                        menuItemComponent);
 //                reports.setSizeUndefined();
@@ -175,7 +179,7 @@ public class DashboardMenu extends CustomComponent {
 //
 //                });
 //                menuItemComponent = reports;
-                }
+//            }
 
 //                if (view == DashboardViewType.DASHBOARD) {
 //                    notificationsBadge = new Label();
@@ -183,17 +187,14 @@ public class DashboardMenu extends CustomComponent {
 //                    menuItemComponent = buildBadgeWrapper(menuItemComponent,
 //                            notificationsBadge);
 //                }
-                if (view == DashboardViewType.REPORTS) {
-                    reportsBadge = new Label();
-                    reportsBadge.setId(REPORTS_BADGE_ID);
-                    menuItemComponent = buildBadgeWrapper(menuItemComponent,
-                            reportsBadge);
-                }
+//            if (view == DashboardViewType.REPORTS) {
+//                reportsBadge = new Label();
+//                reportsBadge.setId(REPORTS_BADGE_ID);
+//                menuItemComponent = buildBadgeWrapper(menuItemComponent,
+//                        reportsBadge);
+//            }
+        }
 
-                menuItemsLayout.addComponent(menuItemComponent);
-            }
-            
-        
         return menuItemsLayout;
 
     }
