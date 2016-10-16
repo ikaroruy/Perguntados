@@ -2,7 +2,7 @@
 <resources>
     <Resource id="perguntadosdb" type="javax.sql.DataSource">#Thu Jul 23 08:07:57 BRT 2015
         jdbcDriver=com.mysql.jdbc.Driver
-        password=102030
+        password=123456
         userName=root
         jdbcUrl=jdbc:mysql://localhost:3306/perguntadosdb
     </Resource>
