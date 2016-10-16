@@ -1,2 +1,0 @@
-# Module br.com.coelce.anomalia.MyAppWidgetset
-# RPC service class, partial path of RPC policy file

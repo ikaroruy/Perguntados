@@ -1,0 +1,1 @@
+$wnd.br_com_coelce_perguntados_MyAppWidgetset.runAsyncCallback2('$cb(1572,1,k3d);_.uc=function adc(){S$b((!L$b&&(L$b=new X$b),L$b),this.a.d)};NYd(Th)(2);\n//# sourceURL=br.com.coelce.perguntados.MyAppWidgetset-2.js\n')
